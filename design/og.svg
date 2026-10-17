@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200"
+ height="630">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e40af"/>
+<stop offset="1" stop-color="#0d9488"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#g)"/>
+<g font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#ffffff">
+<text x="90" y="250" font-size="92" font-weight="800">SpaceWarden</text>
+<text x="90" y="330" font-size="46" font-weight="600" fill="#fde68a">Tidy Mac. Zero
+ snooping.</text>
+<text x="90" y="410" font-size="30" fill="#e0f2fe">Free up space in a few clicks.</text>
+<text x="90" y="452" font-size="30" fill="#e0f2fe">Your files never leave your Mac.</text>
+<text x="90" y="550" font-size="24" fill="#bae6fd">Free for macOS 15 and later</text>
+</g>
+<circle cx="930" cy="315" r="170" fill="#ffffff" opacity="0.10"/>
+<path d="M931.1 213.5A101.5 101.5 0 0 1 1018.4 364.8L973.0 339.2A49.3 49.3 0 0 0 930.5 265.7Z" fill="#2563eb"/><path d="M1017.4 366.7A101.5 101.5 0 0 1 896.3 410.7L913.6 361.5A49.3 49.3 0 0 0 972.4 340.1Z" fill="#0ea5e9"/><path d="M894.3 410.0A101.5 101.5 0 0 1 829.0 324.9L880.9 319.8A49.3 49.3 0 0 0 912.7 361.1Z" fill="#14b8a6"/><path d="M828.8 322.8A101.5 101.5 0 0 1 863.9 237.9L897.9 277.6A49.3 49.3 0 0 0 880.8 318.8Z" fill="#6366f1"/><path d="M865.6 236.6A101.5 101.5 0 0 1 928.9 213.5L929.5 265.7A49.3 49.3 0 0 0 898.7 276.9Z" fill="#94a3b8"/><path d="M931.6 164.2A150.79999999999998 150.79999999999998 0 0 1 1071.2 261.9L1029.1 277.8A105.85 105.85 0 0 0 931.1 209.2Z" fill="#3b82f6"/><path d="M1072.2 264.9A150.79999999999998 150.79999999999998 0 0 1 1061.4 389.0L1022.2 367.0A105.85 105.85 0 0 0 1029.8 279.8Z" fill="#60a5fa"/><path d="M1059.8 391.8A150.79999999999998 150.79999999999998 0 0 1 970.6 460.2L958.5 417.0A105.85 105.85 0 0 0 1021.1 368.9Z" fill="#38bdf8"/><path d="M967.5 461.1A150.79999999999998 150.79999999999998 0 0 1 879.9 457.2L894.8 414.8A105.85 105.85 0 0 0 956.3 417.5Z" fill="#7dd3fc"/><path d="M876.9 456.2A150.79999999999998 150.79999999999998 0 0 1 800.2 391.8L838.9 368.9A105.85 105.85 0 0 0 892.8 414.1Z" fill="#2dd4bf"/><path d="M798.6 389.0A150.79999999999998 150.79999999999998 0 0 1 779.9 329.7L824.7 325.3A105.85 105.85 0 0 0 837.8 367.0Z" fill="#5eead4"/><path d="M779.6 326.6A150.79999999999998 150.79999999999998 0 0 1 798.6 241.0L837.8 263.0A105.85 105.85 0 0 0 824.5 323.1Z" fill="#818cf8"/><path d="M800.2 238.2A150.79999999999998 150.79999999999998 0 0 1 831.9 200.5L861.1 234.6A105.85 105.85 0 0 0 838.9 261.1Z" fill="#a5b4fc"/><g transform="translate(-4.5 -13.8)"><path d="M842.6 192.1A150.79999999999998 150.79999999999998 0 0 1 928.4 164.2L928.9 209.2A105.85 105.85 0 0 0 868.7 228.7Z" fill="#f59e0b"/></g>
+<circle cx="930" cy="315" r="45" fill="#ffffff"/>
+</svg>
