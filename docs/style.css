@@ -288,18 +288,51 @@ summary:focus-visible {
   font-size: 14px;
 }
 
-.shot {
+.shot-wrap {
+  max-width: 1000px;
   margin: 48px auto 0;
-  width: 100%;
-  max-width: 960px;
-  border-radius: 14px;
-  box-shadow: var(--shadow);
+}
+
+/* The screenshots have a transparent margin for the window shadow (90 px on the sides, 60 px
+   on top and 120 px below, on a 1120 px window). These margins cancel it, so the window
+   fills the box. */
+.shot,
+.gallery img {
+  display: block;
+  width: calc(100% * 1300 / 1120);
+  max-width: none;
+  margin: calc(-100% * 60 / 1120) 0 calc(-100% * 120 / 1120) calc(-100% * 90 / 1120);
 }
 
 .shot-note {
-  margin-top: 10px;
+  margin-top: 18px;
   font-size: 13px;
   color: var(--muted);
+}
+
+/* Gallery */
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.gallery figure {
+  margin: 0;
+}
+
+.gallery figcaption {
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 14px;
+}
+
+@media (max-width: 800px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Pillars */

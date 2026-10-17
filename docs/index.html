@@ -72,9 +72,11 @@
         <p class="fine">Free. macOS 15 Sequoia or later. Signed and notarized by Apple.<br>
           To hear about the first release, <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases">watch the repository on GitHub</a> (Watch → Custom → Releases).</p>
 
-        <img class="shot" src="assets/app-window.svg" width="960" height="600"
-          alt="The SpaceWarden Overview. A storage map shows what uses the disk. Recommended actions list how much space each one frees and how safe it is.">
-        <p class="shot-note">Illustration of the Overview. The sizes are examples.</p>
+        <div class="shot-wrap">
+          <img class="shot" src="assets/overview.png" width="1300" height="900"
+            alt="The SpaceWarden Overview. Recommended actions list how much space each one frees and how safe it is.">
+        </div>
+        <p class="shot-note">The sizes and file names in the screenshots are examples.</p>
 
         <div class="pillars">
           <div class="pillar">
@@ -149,7 +151,29 @@
       </div>
     </section>
 
-    <section id="privacy">
+    <section id="screens">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>See where your space went</h2>
+          <p>The storage map shows what fills your Mac. Duplicates finds exact copies, and one copy
+            always stays.</p>
+        </div>
+        <div class="gallery">
+          <figure>
+            <a href="assets/storage-map.png" aria-label="Open the full-size screenshot"><img src="assets/storage-map.png" width="1300" height="900" loading="lazy"
+              alt="The storage map: a sunburst of folders and the space of each category, such as Photos, Videos and Developer."></a>
+            <figcaption>Storage map and categories</figcaption>
+          </figure>
+          <figure>
+            <a href="assets/duplicates.png" aria-label="Open the full-size screenshot"><img src="assets/duplicates.png" width="1300" height="900" loading="lazy"
+              alt="Duplicates: groups of identical files. One copy is suggested to keep, and the extra copies are selected for the Trash."></a>
+            <figcaption>Duplicates, with one copy suggested to keep</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy" class="section-alt">
       <div class="wrap">
         <div class="section-head">
           <h2>Zero snooping, by design</h2>
@@ -182,7 +206,7 @@
       </div>
     </section>
 
-    <section id="install" class="section-alt">
+    <section id="install">
       <div class="wrap">
         <div class="section-head">
           <h2>Install in a minute</h2>
@@ -214,7 +238,7 @@
       </div>
     </section>
 
-    <section id="faq">
+    <section id="faq" class="section-alt">
       <div class="wrap">
         <div class="section-head">
           <h2>Questions</h2>
