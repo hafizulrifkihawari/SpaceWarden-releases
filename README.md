@@ -22,15 +22,8 @@ Get the latest disk image from [Releases](../../releases/latest).
 3. Quit SpaceWarden.
 4. Open the new disk image, drag SpaceWarden to Applications, then select **Replace**.
 
-Your settings and Full Disk Access stay.
-
-## How you know a download is real
-
-- Each disk image is signed with the developer's Developer ID and notarized by Apple. macOS
-  checks both when you open it.
-- `update.json` in this repository has an Ed25519 signature. SpaceWarden checks the signature
-  before it shows a new version. A changed file shows no download link.
-- SpaceWarden never downloads or installs an update by itself. You choose when to update.
+Your settings and Full Disk Access stay. SpaceWarden never downloads or installs an update by
+itself. You choose when to update.
 
 ## Privacy
 
