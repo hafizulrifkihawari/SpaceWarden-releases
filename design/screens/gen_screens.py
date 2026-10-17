@@ -154,6 +154,59 @@ body {
   display: flex; align-items: center; justify-content: space-between; padding: 12px 20px;
   border-top: 1px solid var(--line); font-variant-numeric: tabular-nums;
 }
+.search {
+  display: flex; align-items: center; gap: 6px; width: 170px; height: 28px; padding: 0 9px;
+  border-radius: 14px; background: var(--cap); color: var(--ter);
+  box-shadow: inset 0 0 0 0.5px rgba(255,255,255,.08);
+}
+.search svg { width: 13px; height: 13px; }
+.tseg { display: inline-flex; background: var(--cap); border-radius: 8px; padding: 2px; height: 28px;
+  align-items: center; box-shadow: inset 0 0 0 0.5px rgba(255,255,255,.08); }
+.tseg span { display: flex; padding: 3px 9px; border-radius: 6px; color: var(--sec); }
+.tseg span svg { width: 15px; height: 15px; }
+.tseg .on { background: #5b5c60; color: #fff; }
+.kinds { display: flex; background: var(--cap); border-radius: 6px; padding: 2px; margin: 4px 12px 0; }
+.kinds span { flex: 1; text-align: center; padding: 2px 0; border-radius: 5px; }
+.kinds .on { background: #5b5c60; }
+.filters { display: flex; align-items: center; gap: 12px; padding: 8px 12px; font-size: 12px; }
+.pop {
+  display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 6px 0 8px;
+  border-radius: 5px; background: var(--btn); white-space: nowrap;
+  box-shadow: 0 0.5px 0 rgba(255,255,255,.08) inset, 0 1px 1px rgba(0,0,0,.25);
+}
+.pop::after { content: "⌃"; transform: rotate(180deg); font-size: 9px; color: var(--sec); }
+.lbl { white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(152px, 1fr)); gap: 10px; padding: 12px;
+  justify-content: start; }
+.cell { padding: 6px; border-radius: 8px; text-align: center; }
+.cell.on { background: rgba(45,110,211,.25); }
+.thumb { width: 128px; height: 128px; margin: 0 auto 4px; display: flex; align-items: center;
+  justify-content: center; }
+.thumb svg { display: block; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,.5); }
+.cell .n { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cell .m { font-size: 11px; color: var(--sec); font-variant-numeric: tabular-nums; }
+.cell.on .m { color: var(--text); }
+.insp { width: 270px; flex: none; border-left: 1px solid var(--line); background: #252529;
+  padding: 16px; display: flex; flex-direction: column; gap: 14px; font-size: 12px; }
+.insp hr { border: 0; border-top: 1px solid var(--line); margin: 0; width: 100%; }
+.insp .hd { display: flex; gap: 12px; align-items: center; }
+.insp .hd b { font-size: 13px; }
+.kv { display: flex; justify-content: space-between; padding: 2px 0; }
+.kv span:first-child { color: var(--sec); }
+.ql { height: 300px; border-radius: 6px; background: #1d1e21; display: flex; align-items: center;
+  justify-content: center; overflow: hidden; }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.arow { display: flex; align-items: baseline; gap: 10px; padding: 9px 4px; margin: 0 8px;
+  border-bottom: 1px solid rgba(255,255,255,.07); }
+.arow .ai { width: 18px; flex: none; color: var(--blue); position: relative; top: 3px; }
+.arow .ai svg { width: 15px; height: 15px; }
+.arow.undone .ai { color: var(--sec); }
+.arow .tx { flex: 1; min-width: 0; }
+.arow .tt { font-size: 13px; font-weight: 700; }
+.arow.undone .tt { color: var(--sec); }
+.arow .dt { font-size: 11px; color: var(--sec); }
+.arow .tm { font-size: 10px; color: var(--ter); margin-top: 1px; }
+.arow .disc { width: 10px; color: var(--sec); font-size: 10px; }
 """
 
 ICONS = {
@@ -185,6 +238,12 @@ ICONS = {
     "photo": '<rect x="1.8" y="3" width="12.4" height="10" rx="1.6"/><circle cx="5.6" cy="6.6" r="1.2"/><path d="M14 11.2 10.6 8 5 13"/>',
     "app": '<rect x="2.6" y="2.6" width="10.8" height="10.8" rx="2.6"/>',
     "note": '<path d="M6.4 12V3l6-1.2v8.4"/><circle cx="4.8" cy="12" r="1.6"/><circle cx="10.8" cy="10.4" r="1.6"/>',
+    "search": '<circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/>',
+    "list": '<path d="M5.6 4h8M5.6 8h8M5.6 12h8"/><circle cx="2.6" cy="4" r=".5"/><circle cx="2.6" cy="8" r=".5"/><circle cx="2.6" cy="12" r=".5"/>',
+    "grid": '<rect x="2.2" y="2.2" width="4.8" height="4.8" rx="1"/><rect x="9" y="2.2" width="4.8" height="4.8" rx="1"/><rect x="2.2" y="9" width="4.8" height="4.8" rx="1"/><rect x="9" y="9" width="4.8" height="4.8" rx="1"/>',
+    "trash": '<path d="M2.5 4h11M6 4V2.6h4V4M4 4l.7 9.4h6.6L12 4M6.6 6.5v4.6M9.4 6.5v4.6"/>',
+    "movedoc": '<path d="M3 2.4h5l2.4 2.4v3.4M3 2.4v11.2h4.4"/><path d="M9 12h5m-1.8-1.8L14 12l-1.8 1.8"/>',
+    "branch": '<path d="M4 14V9.6C4 7.6 5.4 6.4 8 6.4h4M10 4.2l2.2 2.2L10 8.6M4 2v5"/>',
     "film": '<rect x="1.8" y="2.6" width="12.4" height="10.8" rx="1.4"/><path d="M4.8 2.6v10.8M11.2 2.6v10.8M1.8 6h3M1.8 10h3M11.2 6h3M11.2 10h3"/>',
 }
 
@@ -422,7 +481,190 @@ Files</span><span class="chk"><i></i>Show Dependency and Build Folders</span>
     return page(body, "Duplicates")
 
 
+# 4. Media Library with a preview --------------------------------------------------------
+
+def scene(kind, w, h, uid):
+    """A made-up photo: simple shapes in the colors of a landscape. No real picture."""
+    g = f"g{uid}"
+    skies = {
+        "lake": ("#f6b67a", "#9cc3e6"), "beach": ("#7fc4ef", "#d8f0fb"),
+        "sunset": ("#3b2c6b", "#f08a4b"), "forest": ("#b7d9ef", "#eaf4f7"),
+        "city": ("#0e1736", "#33407a"), "dunes": ("#f3c58e", "#fbe6c4"),
+        "snow": ("#6d9fd6", "#dbe9f7"), "flowers": ("#a9d4f2", "#e7f4fb"),
+        "portrait": ("#e9d6c3", "#c9a98d"),
+    }
+    top, bottom = skies[kind]
+    shapes = []
+    W, H = w, h
+    if kind == "lake":
+        shapes = [f'<circle cx="{W*.7}" cy="{H*.42}" r="{H*.1}" fill="#ffe2a8"/>',
+                  f'<path d="M0 {H*.62}L{W*.22} {H*.32}L{W*.45} {H*.6}L{W*.66} {H*.38}L{W} {H*.62}Z" fill="#4f6b8c"/>',
+                  f'<path d="M0 {H*.64}L{W*.3} {H*.46}L{W*.55} {H*.64}Z" fill="#3c5574"/>',
+                  f'<rect y="{H*.62}" width="{W}" height="{H*.38}" fill="#6f98c4"/>',
+                  f'<rect x="{W*.6}" y="{H*.66}" width="{W*.2}" height="2" fill="#ffe2a8" opacity=".7"/>']
+    elif kind == "beach":
+        shapes = [f'<rect y="{H*.5}" width="{W}" height="{H*.2}" fill="#2b8fc4"/>',
+                  f'<rect y="{H*.56}" width="{W}" height="{H*.1}" fill="#46b3d9"/>',
+                  f'<path d="M0 {H*.7}Q{W*.5} {H*.62} {W} {H*.72}V{H}H0Z" fill="#ecd6a8"/>',
+                  f'<path d="M{W*.2} {H}C{W*.22} {H*.7} {W*.26} {H*.5} {W*.3} {H*.34}" stroke="#6b4a2c" stroke-width="3" fill="none"/>',
+                  f'<path d="M{W*.3} {H*.34}q-{W*.14} 0 -{W*.2} {H*.1}M{W*.3} {H*.34}q{W*.14} -{H*.02} {W*.2} {H*.12}M{W*.3} {H*.34}q-{W*.04} -{H*.12} -{W*.14} -{H*.14}" stroke="#2f7a3b" stroke-width="4" fill="none" stroke-linecap="round"/>']
+    elif kind == "sunset":
+        shapes = [f'<circle cx="{W*.5}" cy="{H*.62}" r="{H*.17}" fill="#ffcf6b"/>',
+                  f'<rect y="{H*.62}" width="{W}" height="{H*.38}" fill="#2a2350"/>',
+                  f'<rect x="{W*.36}" y="{H*.68}" width="{W*.28}" height="2" fill="#ffcf6b" opacity=".8"/>',
+                  f'<rect x="{W*.42}" y="{H*.75}" width="{W*.16}" height="2" fill="#ffcf6b" opacity=".6"/>']
+    elif kind == "forest":
+        trees = "".join(
+            f'<path d="M{x} {H*.9}L{x+W*.07} {H*(.38+.08*(i%3))}L{x+W*.14} {H*.9}Z" fill="{c}"/>'
+            for i, (x, c) in enumerate((W*f, c) for f, c in [
+                (-.04, "#2f6b45"), (.1, "#245a3a"), (.25, "#3a7d50"), (.4, "#2a6340"),
+                (.55, "#336f48"), (.7, "#245a3a"), (.85, "#3a7d50")]))
+        shapes = [f'<rect y="{H*.6}" width="{W}" height="{H*.4}" fill="#5f8f5a"/>', trees]
+    elif kind == "city":
+        rnd = random.Random(3)
+        x, bl = 0.0, []
+        while x < W:
+            bw = rnd.uniform(W*.07, W*.14); bh = rnd.uniform(H*.25, H*.6)
+            bl.append(f'<rect x="{x:.1f}" y="{H-bh:.1f}" width="{bw:.1f}" height="{bh:.1f}" fill="#1a2140"/>')
+            for _ in range(int(bh/7)):
+                if rnd.random() < .55:
+                    bl.append(f'<rect x="{x+rnd.uniform(2,bw-4):.1f}" y="{H-rnd.uniform(4,bh-4):.1f}" width="2" height="2" fill="#ffd27a"/>')
+            x += bw + 1
+        shapes = [f'<circle cx="{W*.8}" cy="{H*.2}" r="{H*.06}" fill="#e8ecf7"/>'] + bl
+    elif kind == "dunes":
+        shapes = [f'<circle cx="{W*.25}" cy="{H*.3}" r="{H*.09}" fill="#fff4dc"/>',
+                  f'<path d="M0 {H*.62}Q{W*.3} {H*.42} {W*.6} {H*.6}T{W} {H*.55}V{H}H0Z" fill="#e2a15f"/>',
+                  f'<path d="M0 {H*.8}Q{W*.4} {H*.6} {W} {H*.78}V{H}H0Z" fill="#c9824a"/>']
+    elif kind == "snow":
+        shapes = [f'<path d="M0 {H*.75}L{W*.35} {H*.22}L{W*.6} {H*.55}L{W*.75} {H*.38}L{W} {H*.72}V{H}H0Z" fill="#7a8fa8"/>',
+                  f'<path d="M{W*.27} {H*.34}L{W*.35} {H*.22}L{W*.43} {H*.34}L{W*.38} {H*.31}L{W*.33} {H*.36}Z" fill="#fff"/>',
+                  f'<path d="M0 {H*.82}Q{W*.5} {H*.7} {W} {H*.84}V{H}H0Z" fill="#f2f6fb"/>']
+    elif kind == "flowers":
+        rnd = random.Random(5)
+        fl = "".join(f'<circle cx="{rnd.uniform(0,W):.1f}" cy="{rnd.uniform(H*.6,H):.1f}" r="{rnd.uniform(1.5,3.2):.1f}" fill="{rnd.choice(["#ff6b8b","#ffd23f","#ffffff","#c77dff"])}"/>' for _ in range(60))
+        shapes = [f'<path d="M0 {H*.55}Q{W*.5} {H*.45} {W} {H*.55}V{H}H0Z" fill="#6aa84f"/>', fl]
+    elif kind == "portrait":
+        shapes = [f'<circle cx="{W*.5}" cy="{H*.4}" r="{W*.17}" fill="#8a6a55"/>',
+                  f'<path d="M{W*.12} {H}Q{W*.5} {H*.52} {W*.88} {H}Z" fill="#3f5c7a"/>',
+                  f'<path d="M{W*.33} {H*.36}Q{W*.5} {H*.12} {W*.67} {H*.36}Q{W*.5} {H*.26} {W*.33} {H*.36}Z" fill="#3a2a22"/>']
+    return (f'<svg width="{W}" height="{H}" viewBox="0 0 {W} {H}"><defs><linearGradient id="{g}" '
+            f'x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{top}"/><stop offset="1" '
+            f'stop-color="{bottom}"/></linearGradient></defs><rect width="{W}" height="{H}" '
+            f'fill="url(#{g})"/>{"".join(shapes)}</svg>')
+
+
+PHOTOS = [  # name, scene, landscape?, size, last opened
+    ("Lake Bled sunrise.jpg", "lake", True, "18.4 MB", "Aug 2024"),
+    ("Bali beach.heic", "beach", True, "6.2 MB", "Jul 2023"),
+    ("Lisbon sunset.jpg", "sunset", True, "12.9 MB", "May 2024"),
+    ("Black Forest walk.jpg", "forest", False, "9.7 MB", "Sep 2022"),
+    ("Tokyo at night.heic", "city", True, "7.8 MB", "Mar 2025"),
+    ("Sahara dunes.jpg", "dunes", True, "15.1 MB", "Nov 2022"),
+    ("Alps ski trip.jpg", "snow", True, "11.3 MB", "Feb 2023"),
+    ("Spring garden.heic", "flowers", False, "5.4 MB", "Apr 2025"),
+    ("Grandma 80th.jpg", "portrait", False, "8.6 MB", "Dec 2024"),
+]
+
+
+def thumb(kind, landscape, uid, side=128):
+    w, h = (side, round(side * .667)) if landscape else (round(side * .75), side)
+    return scene(kind, w, h, uid)
+
+
+def media_library():
+    cells = []
+    for i, (name, kind, land, size, used) in enumerate(PHOTOS):
+        on = " on" if i == 0 else ""
+        cells.append(f'<div class="cell{on}"><div class="thumb">{thumb(kind, land, i)}</div>'
+                     f'<div class="n">{name}</div><div class="m">{size} · {used}</div></div>')
+    toolbar_html = f'''<div class="toolbar"><h1>Media Library</h1>
+<div class="capsule"><span>{icon("target")}Home Folder ⌄</span></div>
+<div class="search">{icon("search")}Filter by Name</div>
+<div class="tseg"><span>{icon("list")}</span><span class="on">{icon("grid")}</span></div>
+<div class="capsule"><span>{icon("trash")}Move 1 to Trash · 18.4 MB</span></div>
+<div class="capsule"><span>{icon("preview")}Preview</span></div></div>'''
+    kinds = "".join(f'<span class="{"on" if k == "Pictures" else ""}">{k} ({n})</span>' for k, n in [
+        ("Pictures", "2,418"), ("Videos", "164"), ("Audio", "392"), ("Documents", "1,807")])
+    main = f'''<div style="padding:4px 12px 4px">{FRESH}</div>
+<div class="kinds">{kinds}</div>
+<div class="filters"><span class="pop">All Locations</span>
+<span class="lbl">Larger than <span class="pop">Any size</span></span>
+<span class="lbl">Sort <span class="pop">Largest First</span></span>
+<span class="sec" style="margin-left:auto;white-space:nowrap">2,418 files · 21.64 GB</span></div>
+<div class="vis" style="border-top:1px solid var(--line)"><span class="chk"><i class="on"></i>Show
+Hidden Files</span><span class="chk"><i class="on"></i>Show Dependency and Build Folders</span></div>
+<div class="grid">{"".join(cells)}</div>'''
+    big = scene("lake", 238, 159, "big")
+    insp = f'''<div class="insp"><div class="hd">{thumb("lake", True, "hd", 48)}
+<div><b>Lake Bled sunrise.jpg</b><div class="sec">18.4 MB</div></div></div>
+<div><div class="kv"><span>Kind</span><span>JPEG image</span></div>
+<div class="kv"><span>Category</span><span>Photos</span></div>
+<div class="kv"><span>Modified</span><span>14 Aug 2024 at 06:12</span></div>
+<div class="kv"><span>Last opened</span><span>21 Aug 2024</span></div>
+<div class="sec small" style="margin-top:6px">/Users/alex/Pictures/Slovenia 2024/Lake Bled
+sunrise.jpg</div></div><hr>
+<div class="ql">{big}</div><hr>
+<div class="acts"><span class="btn">Reveal in Finder</span><span class="btn">Show in Explorer</span>
+<span class="btn">Open</span></div></div>'''
+    body = f'''<div class="window">{sidebar("media")}<div class="main">{toolbar_html}
+<div style="display:flex;flex:1;min-height:0;border-top:1px solid #1c1c1e">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden">{main}</div>
+{insp}</div></div></div>'''
+    return page(body, "Media Library")
+
+
+# 5. Activity ----------------------------------------------------------------------------
+
+ACTIVITY = [  # icon, title, detail, time, undone
+    ("branch", "Organize Rules run: 38 moves", "Click the arrow to see each move.",
+     "18 Oct 2026 at 9:52", False),
+    ("trash", "Moved to Trash", "/Users/alex/Downloads/Xcode_16.4.xip", "18 Oct 2026 at 9:47",
+     False),
+    ("trash", "Moved to Trash", "/Users/alex/Downloads/Figma-Installer.dmg",
+     "18 Oct 2026 at 9:47", False),
+    ("trash", "Moved to Trash", "/Users/alex/Movies/Japan trip 2025 (copy).mov",
+     "18 Oct 2026 at 9:45", False),
+    ("movedoc", "Renamed", "/Users/alex/Documents/Scan 0012.pdf → "
+     "/Users/alex/Documents/Lease agreement 2026.pdf", "18 Oct 2026 at 9:44", False),
+    ("trash", "Moved to Trash (undone)", "/Users/alex/Pictures/Slovenia 2024/Lake Bled "
+     "sunrise.jpg", "18 Oct 2026 at 9:43", True),
+    ("movedoc", "Moved", "/Users/alex/Desktop/Tax receipts 2025 → "
+     "/Users/alex/Documents/Finance/Tax receipts 2025", "18 Oct 2026 at 9:40", False),
+    ("trash", "Moved to Trash", "/Users/alex/Library/Caches/com.spotify.client",
+     "18 Oct 2026 at 9:38", False),
+    ("trash", "Moved to Trash", "/Users/alex/Projects/old-portfolio/node_modules",
+     "18 Oct 2026 at 9:38", False),
+    ("trash", "Moved to Trash", "/Users/alex/Downloads/Zoom.pkg", "17 Oct 2026 at 18:21",
+     False),
+]
+
+
+def activity():
+    rows = []
+    for i, (ic, title, detail, when, undone) in enumerate(ACTIVITY):
+        cls = " undone" if undone else ""
+        disc = '<span class="disc">›</span>' if ic == "branch" else ""
+        btn = "" if undone else ('<span class="btn">Undo Run</span>' if ic == "branch"
+                                 else '<span class="btn">Undo</span>')
+        rows.append(f'<div class="arow{cls}">{disc}<span class="ai">{icon(ic)}</span>'
+                    f'<div class="tx"><div class="tt">{title}</div><div class="dt">{detail}</div>'
+                    f'<div class="tm">{when}</div></div>{btn}</div>')
+    main = f'''<div style="display:flex;align-items:center;padding:10px 20px">
+<span class="sec" style="flex:1;white-space:nowrap">SpaceWarden records every move, rename and move to the Trash. You
+can undo each one.</span><span class="btn">Clear History</span></div>
+<div style="border-top:1px solid var(--line);padding-top:4px">{"".join(rows)}</div>'''
+    insp = f'''<div class="inspector" style="width:220px">{icon("preview").replace("<svg ", '<svg style="width:46px;height:46px;stroke-width:1" ', 1)}
+<div style="font-size:22px;font-weight:700;color:var(--sec);margin:12px 0 6px">No Selection</div>
+<div>Select a file or a folder to see its details and a preview.</div></div>'''
+    body = f'''<div class="window">{sidebar("activity")}<div class="main">{toolbar("Activity")}
+<div style="display:flex;flex:1;min-height:0">
+<div style="flex:1;min-width:0;overflow:hidden">{main}</div>{insp}</div></div></div>'''
+    return page(body, "Activity")
+
+
 (OUT / "overview.html").write_text(overview())
 (OUT / "storage-map.html").write_text(storage_map())
 (OUT / "duplicates.html").write_text(duplicates())
+(OUT / "media-library.html").write_text(media_library())
+(OUT / "activity.html").write_text(activity())
 print("wrote", ", ".join(p.name for p in sorted(OUT.glob("*.html"))))
