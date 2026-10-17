@@ -2,6 +2,8 @@
 
 **Tidy Mac. Zero snooping.**
 
+**Website: [hafizulrifkihawari.github.io/SpaceWarden-releases](https://hafizulrifkihawari.github.io/SpaceWarden-releases/)**
+
 SpaceWarden shows what fills your Mac and helps you free up space, safely and privately.
 This repository holds the downloads and the update information. The source code is private.
 
@@ -41,3 +43,10 @@ Passwords, keys and private messages are never scanned or read.
 ## Requirements
 
 macOS 15 Sequoia or later.
+
+## Support
+
+SpaceWarden is free, with every feature. If it freed space for you, you can support its work on
+[Ko-fi](https://ko-fi.com/psi404). A tip gives no extra features.
+
+Found a bug or have an idea? Open an [issue](../../issues).
