@@ -241,9 +241,9 @@ summary:focus-visible {
 }
 
 .hero-icon {
-  width: 112px;
-  height: 112px;
-  margin: 0 auto 20px;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 8px;
 }
 
 .hero h1 {
