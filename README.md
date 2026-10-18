@@ -13,7 +13,10 @@ Get the latest disk image from [Releases](../../releases/latest).
 
 1. Download `SpaceWarden.dmg`.
 2. Open it, then drag SpaceWarden to the Applications folder.
-3. Open SpaceWarden from Applications.
+3. Open SpaceWarden from Applications and click **Full Scan**.
+
+Full Disk Access is optional. Without it, the scan skips iCloud Drive, cloud storage, the data
+of other apps and the Trash. To count them too, turn it on in **Settings → Privacy**.
 
 ### Update to a new version
 
@@ -22,7 +25,7 @@ Get the latest disk image from [Releases](../../releases/latest).
 3. Quit SpaceWarden.
 4. Open the new disk image, drag SpaceWarden to Applications, then select **Replace**.
 
-Your settings and Full Disk Access stay. SpaceWarden never downloads or installs an update by
+Your settings stay. SpaceWarden never downloads or installs an update by
 itself. You choose when to update.
 
 ## Privacy
