@@ -1097,6 +1097,27 @@ pre code {
   cursor: auto;
 }
 
+/* A short open side shows its content in the vertical center. The auto margins become 0
+   when the content is taller than the side, so a long side still starts at the top. */
+.is-cube .face.is-open {
+  display: flex;
+  flex-direction: column;
+}
+
+.is-cube .face.is-open > :first-child {
+  margin-top: auto;
+}
+
+.is-cube .face.is-open > section:last-of-type {
+  margin-bottom: auto;
+}
+
+/* Install is shorter than the open side. It fills the side, so the #install link can
+   scroll it to the top. */
+.is-cube .face.is-open > .hero + section {
+  min-height: 100%;
+}
+
 .is-cube .is-reading .face:not(.is-open) {
   opacity: 0.15;
 }
