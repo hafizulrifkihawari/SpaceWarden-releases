@@ -23,6 +23,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
+  <script src="cube.js" defer></script>
+  <script src="preview.js" defer></script>
 
   <script type="application/ld+json">
   {
@@ -53,291 +55,313 @@
         <a href="#install">Install</a>
         <a href="#faq">FAQ</a>
         <a href="#support">Support</a>
-        <a class="btn btn-small" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg">Download</a>
+        <a class="btn btn-small btn-ink" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>Download</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <div class="hero">
-      <div class="wrap">
-        <img class="hero-icon" src="assets/mascot-512.png" srcset="assets/mascot-1024.png 2x" alt="The SpaceWarden mascot: a cheerful warden with a thumbs-up and a vacuum cannon that sucks up files." width="240" height="240">
-        <span class="badge">Beta</span>
-        <h1>SpaceWarden</h1>
-        <p class="tagline">Tidy Mac. Zero snooping.</p>
-        <p class="lead">Free up space in a few clicks. Everything goes to the Trash first, and your
-          files never leave your Mac.</p>
-        <div class="cta">
-          <a class="btn" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg">Download the beta for Mac</a>
-          <a class="btn btn-ghost" href="#features">See what it does</a>
-        </div>
-        <p class="fine">Free beta. macOS 15 Sequoia or later.<br>
-          macOS shows a warning the first time you open it.
-          <a href="security.html#beta">Read why, and how to open it</a>.</p>
-
-        <div class="shot-wrap">
-          <img class="shot" src="assets/overview.png" width="1300" height="900"
-            alt="The SpaceWarden Overview. Recommended actions list how much space each one frees and how safe it is.">
-        </div>
-        <p class="shot-note">The sizes and file names in the screenshots are examples.</p>
-
-        <div class="pillars">
-          <div class="pillar">
-            <h3>Easy</h3>
-            <p>See what fills your Mac in seconds. Clear it in a few clicks.</p>
+    <div class="cube-stage">
+      <div class="cube-scaler">
+        <div class="cube">
+          <div class="face" data-face="front" data-label="Home">
+            <div class="hero">
+              <div class="wrap">
+                <img class="hero-icon" src="assets/mascot-512.png" srcset="assets/mascot-1024.png 2x" alt="The SpaceWarden mascot: a cheerful warden with a thumbs-up and a vacuum cannon that sucks up files." width="240" height="240">
+                <span class="badge">Beta</span>
+                <h1>SpaceWarden</h1>
+                <p class="tagline">Tidy Mac. Zero snooping.</p>
+                <p class="lead">Free up space in a few clicks. Everything goes to the Trash first, and your
+                  files never leave your Mac.</p>
+                <div class="cta">
+                  <a class="btn btn-download" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg><span>Download the beta<small>Free. macOS 15 Sequoia or later.</small></span></a>
+                  <a class="btn btn-link" href="#features">Explore the features<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m0 0-5-5m5 5-5 5"/></svg></a>
+                </div>
+                <p class="fine">macOS shows a warning the first time you open it.
+                  <a href="security.html#beta">Read why, and how to open it</a>.</p>
+                <div class="shot-wrap face-extra">
+                  <img class="shot" src="assets/overview.png" width="1300" height="900"
+                    alt="The SpaceWarden Overview. Recommended actions list how much space each one frees and how safe it is.">
+                </div>
+                <p class="shot-note face-extra">The sizes and file names in the screenshots are examples.</p>
+                <div class="pillars">
+                  <div class="pillar">
+                    <h3>Easy</h3>
+                    <p>See what fills your Mac in seconds. Clear it in a few clicks.</p>
+                  </div>
+                  <div class="pillar">
+                    <h3>Safe</h3>
+                    <p>Everything goes to the Trash first. Activity can undo it.</p>
+                  </div>
+                  <div class="pillar">
+                    <h3>Private</h3>
+                    <p>No account, no tracking. Passwords, keys and messages are never scanned.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <section id="install">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Install in a minute</h2>
+                  <p>SpaceWarden is a normal Mac app. There is no installer and no account.</p>
+                </div>
+                <div class="split">
+                  <ol class="steps">
+                    <li><strong>Download SpaceWarden.dmg</strong>
+                      Get the latest version from
+                      <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest">GitHub Releases</a>.
+                      To make sure that the file is official,
+                      <a href="security.html#checksum">check its checksum</a>.</li>
+                    <li><strong>Drag it to Applications</strong>
+                      Open the disk image, then drag SpaceWarden to the Applications folder.</li>
+                    <li><strong>Open it with Open Anyway</strong>
+                      The beta is not notarized yet, so macOS shows a warning. Click Done. Then open
+                      System Settings → Privacy &amp; Security, and click <b>Open Anyway</b>.
+                      <a href="security.html#beta">See the steps</a>.</li>
+                    <li><strong>Click Full Scan</strong>
+                      No setup is needed.</li>
+                  </ol>
+                  <div class="card">
+                    <h3>Optional: count every folder</h3>
+                    <p>SpaceWarden works without Full Disk Access. The scan then skips a few folders,
+                      such as iCloud Drive and the data of other apps, so that macOS does not ask you
+                      about each one.</p>
+                    <p>To count these folders too, turn on Full Disk Access at any time. In SpaceWarden,
+                      open <kbd>Settings</kbd> → <kbd>Privacy</kbd>, or click <strong>Include
+                      Them…</strong> after a scan.</p>
+                    <p>Passwords, keys and private messages stay off limits, with or without it.</p>
+                  </div>
+                </div>
+                <div class="cta">
+                  <a class="btn btn-ink" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>Download SpaceWarden.dmg</a>
+                </div>
+                <div class="notice">
+                  <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
+                    Developer ID system yet, so macOS shows a security warning. If you downloaded the
+                    app from the official GitHub release, you can review the warning and use
+                    <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> to run it.
+                    Never turn off Gatekeeper.</p>
+                </div>
+              </div>
+            </section>
           </div>
-          <div class="pillar">
-            <h3>Safe</h3>
-            <p>Everything goes to the Trash first. Activity can undo it.</p>
+
+          <div class="face" data-face="right" data-label="Features">
+            <section id="features" class="section-alt">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Everything you need to free up space</h2>
+                  <p>One app finds the clutter, explains it, and clears it safely.</p>
+                </div>
+                <ul class="features">
+                  <li class="feature feature-lead">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12A9 9 0 1 1 12 3v9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg></div>
+                    <h3>See what fills your Mac</h3>
+                    <p>A storage map, simple categories and the biggest folders, in seconds.</p>
+                    <div class="storage-bar" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+                  </li>
+                  <li class="feature">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4L19 6"/></svg></div>
+                    <h3>Clear it in a few clicks</h3>
+                    <p>Recommended actions show how much space each one frees and how safe it is.</p>
+                  </li>
+                  <li class="feature">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+                    <h3>Big old files</h3>
+                    <p>Find large files that you have not opened in months.</p>
+                  </li>
+                  <li class="feature">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></div>
+                    <h3>Caches and junk</h3>
+                    <p>Clear browser and developer caches. Each one shows how it comes back.</p>
+                  </li>
+                  <li class="feature">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></div>
+                    <h3>Duplicates</h3>
+                    <p>Find exact copies. One copy always stays.</p>
+                  </li>
+                  <li class="feature">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7"/></svg></div>
+                    <h3>Apps you forgot</h3>
+                    <p>See the apps you seldom use. Remove them with their leftover files.</p>
+                  </li>
+                  <li class="feature feature-wide">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg></div>
+                    <h3>All your media in one place</h3>
+                    <p>Photos, videos, music and documents on one screen.</p>
+                  </li>
+                  <li class="feature">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13M3 12h9M3 17h5M17 10v10m0 0-3-3m3 3 3-3"/></svg></div>
+                    <h3>Tidy rules</h3>
+                    <p>Move, rename and sort files. Undo each step in Activity.</p>
+                  </li>
+                  <li class="feature">
+                    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                    <h3>Quick previews</h3>
+                    <p>Look inside files and videos without opening other apps.</p>
+                  </li>
+                </ul>
+              </div>
+            </section>
           </div>
-          <div class="pillar">
-            <h3>Private</h3>
-            <p>No account, no tracking. Passwords, keys and messages are never scanned.</p>
+
+          <div class="face" data-face="back" data-label="Screens">
+            <section id="screens">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>See where your space went</h2>
+                  <p>The storage map shows what fills your Mac. The Media Library shows your photos with a
+                    preview. Duplicates finds exact copies, and Activity can undo each change.</p>
+                </div>
+                <div class="gallery">
+                  <figure>
+                    <a href="assets/storage-map.png" aria-label="Open the full-size screenshot"><img src="assets/storage-map.png" width="1300" height="900" loading="lazy"
+                      alt="The storage map: a sunburst of folders and the space of each category, such as Photos, Videos and Developer."></a>
+                    <figcaption>Storage map and categories</figcaption>
+                  </figure>
+                  <figure class="face-extra">
+                    <a href="assets/duplicates.png" aria-label="Open the full-size screenshot"><img src="assets/duplicates.png" width="1300" height="900" loading="lazy"
+                      alt="Duplicates: groups of identical files. One copy is suggested to keep, and the extra copies are selected for the Trash."></a>
+                    <figcaption>Duplicates, with one copy suggested to keep</figcaption>
+                  </figure>
+                  <figure class="face-extra">
+                    <a href="assets/media-library.png" aria-label="Open the full-size screenshot"><img src="assets/media-library.png" width="1300" height="900" loading="lazy"
+                      alt="The Media Library: thumbnails of photos with their size and last open date, and a large preview of the selected photo."></a>
+                    <figcaption>Media Library, with a preview of each file</figcaption>
+                  </figure>
+                  <figure class="face-extra">
+                    <a href="assets/activity.png" aria-label="Open the full-size screenshot"><img src="assets/activity.png" width="1300" height="900" loading="lazy"
+                      alt="Activity: a list of moves, renames and moves to the Trash. Each one has an Undo button."></a>
+                    <figcaption>Activity, where you can undo each change</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="face" data-face="left" data-label="Privacy">
+            <section id="privacy" class="section-alt">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Zero snooping, by design</h2>
+                  <p>A storage app sees your whole disk. So SpaceWarden keeps everything on your Mac.</p>
+                </div>
+                <div class="split">
+                  <div class="card">
+                    <h3>Private</h3>
+                    <ul class="checks">
+                      <li>SpaceWarden works offline. It goes online only when you select
+                        <strong>Check for Updates</strong>, and it sends nothing about you or your files.</li>
+                      <li>No account, no tracking, no analytics.</li>
+                      <li>Passwords, keys and private messages are never scanned or read.</li>
+                      <li>File names, sizes and contents stay on your Mac. Previews and the duplicate
+                        search read files on your Mac only.</li>
+                    </ul>
+                  </div>
+                  <div class="card">
+                    <h3>Safe</h3>
+                    <ul class="checks">
+                      <li>Everything goes to the Trash first. You can put it back.</li>
+                      <li><strong>Activity</strong> lists each move, rename and trash, and can undo it.</li>
+                      <li>Each cleanup shows how safe it is and how the data comes back.</li>
+                      <li>SpaceWarden never downloads or installs an update by itself.</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="fine center">Read the full <a href="security.html">Security &amp; Privacy</a>
+                  page. This site has no analytics or trackers. GitHub hosts it.</p>
+              </div>
+            </section>
+          </div>
+
+          <div class="face" data-face="bottom" data-label="Questions">
+            <section id="faq" class="section-alt">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Questions</h2>
+                </div>
+                <div class="faq">
+                  <details>
+                    <summary>Why does macOS show a warning?</summary>
+                    <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
+                      Developer ID system yet. That costs a yearly fee, and the developer wants to hear
+                      from testers first. macOS shows the same warning for each app that is not
+                      notarized. <a href="security.html#checksum">Check the checksum</a>, then use
+                      <a href="security.html#beta">Open Anyway</a>. Do not turn off Gatekeeper.</p>
+                  </details>
+                  <details>
+                    <summary>Is SpaceWarden really free?</summary>
+                    <p>Yes. SpaceWarden is free, with every feature. There is no trial and no ads. If you
+                      like it, you can <a href="#support">support the developer</a>.</p>
+                  </details>
+                  <details>
+                    <summary>Does SpaceWarden connect to the internet?</summary>
+                    <p>Only when you select <strong>Check for Updates</strong>. Then it reads one small
+                      file from GitHub and sends no information about you or your files. It never
+                      accepts connections.</p>
+                  </details>
+                  <details>
+                    <summary>Does it read my files?</summary>
+                    <p>To measure space, SpaceWarden reads names, sizes and dates. It reads the contents
+                      of a file only on your Mac, when you preview it or search for duplicates. It never
+                      scans or reads passwords, keys or private messages.</p>
+                  </details>
+                  <details>
+                    <summary>Can I undo a cleanup?</summary>
+                    <p>Yes, for the default actions. They move items to the Trash, and Activity can put
+                      them back. <strong>Delete Immediately</strong> and <strong>Empty Trash</strong>
+                      cannot be undone, and SpaceWarden asks before it does them.</p>
+                  </details>
+                  <details>
+                    <summary>How do updates work?</summary>
+                    <p>Select <strong>SpaceWarden → Check for Updates…</strong>. If a new version is
+                      available, download it from GitHub, quit SpaceWarden, and drag the new version to
+                      Applications. Your settings stay.</p>
+                  </details>
+                  <details>
+                    <summary>Do I need to give it Full Disk Access?</summary>
+                    <p>No. Every feature works without it. Without it, the scan skips iCloud Drive,
+                      cloud storage folders, the data of other apps and the Trash. If you want the scan
+                      to count them too, turn it on in <strong>Settings → Privacy</strong>. You can turn
+                      it off again in System Settings.</p>
+                  </details>
+                  <details>
+                    <summary>Which Macs does it run on?</summary>
+                    <p>Macs with macOS 15 Sequoia or later.</p>
+                  </details>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="face" data-face="top" data-label="Support">
+            <section id="support" class="support">
+              <div class="wrap">
+                <div class="section-head">
+                  <div class="heart" aria-hidden="true">☕</div>
+                  <h2>Support the developer</h2>
+                  <p>SpaceWarden is free. If it freed space for you, you can support its work. Each tip
+                    helps to pay for the Apple developer account and new features.</p>
+                </div>
+                <div class="cta">
+                  <a class="btn btn-accent" href="https://ko-fi.com/psi404" rel="noopener">Tip on Ko-fi</a>
+                  <a class="btn btn-ghost" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/issues">Send feedback</a>
+                </div>
+                <p class="fine">A tip gives no extra features. Every feature is free for everyone.</p>
+                <nav class="cube-links" aria-label="More links">
+                  <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases">Release notes</a>
+                  <a href="security.html">Security &amp; Privacy</a>
+                  <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases">GitHub</a>
+                  <a href="https://ko-fi.com/psi404" rel="noopener">Ko-fi</a>
+                  <span>© 2026 SpaceWarden</span>
+                </nav>
+              </div>
+            </section>
           </div>
         </div>
       </div>
     </div>
-
-    <section id="features" class="section-alt">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Everything you need to free up space</h2>
-          <p>One app finds the clutter, explains it, and clears it safely.</p>
-        </div>
-        <ul class="features">
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12A9 9 0 1 1 12 3v9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg></div>
-            <h3>See what fills your Mac</h3>
-            <p>A storage map, simple categories and the biggest folders, in seconds.</p>
-          </li>
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4L19 6"/></svg></div>
-            <h3>Clear it in a few clicks</h3>
-            <p>Recommended actions show how much space each one frees and how safe it is.</p>
-          </li>
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-            <h3>Big old files</h3>
-            <p>Find large files that you have not opened in months.</p>
-          </li>
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></div>
-            <h3>Caches and junk</h3>
-            <p>Clear browser and developer caches. Each one shows how it comes back.</p>
-          </li>
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></div>
-            <h3>Duplicates</h3>
-            <p>Find exact copies. One copy always stays.</p>
-          </li>
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7"/></svg></div>
-            <h3>Apps you forgot</h3>
-            <p>See the apps you seldom use. Remove them with their leftover files.</p>
-          </li>
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg></div>
-            <h3>All your media in one place</h3>
-            <p>Photos, videos, music and documents on one screen.</p>
-          </li>
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13M3 12h9M3 17h5M17 10v10m0 0-3-3m3 3 3-3"/></svg></div>
-            <h3>Tidy rules</h3>
-            <p>Move, rename and sort files. Undo each step in Activity.</p>
-          </li>
-          <li class="feature">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
-            <h3>Quick previews</h3>
-            <p>Look inside files and videos without opening other apps.</p>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="screens">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>See where your space went</h2>
-          <p>The storage map shows what fills your Mac. The Media Library shows your photos with a
-            preview. Duplicates finds exact copies, and Activity can undo each change.</p>
-        </div>
-        <div class="gallery">
-          <figure>
-            <a href="assets/storage-map.png" aria-label="Open the full-size screenshot"><img src="assets/storage-map.png" width="1300" height="900" loading="lazy"
-              alt="The storage map: a sunburst of folders and the space of each category, such as Photos, Videos and Developer."></a>
-            <figcaption>Storage map and categories</figcaption>
-          </figure>
-          <figure>
-            <a href="assets/duplicates.png" aria-label="Open the full-size screenshot"><img src="assets/duplicates.png" width="1300" height="900" loading="lazy"
-              alt="Duplicates: groups of identical files. One copy is suggested to keep, and the extra copies are selected for the Trash."></a>
-            <figcaption>Duplicates, with one copy suggested to keep</figcaption>
-          </figure>
-          <figure>
-            <a href="assets/media-library.png" aria-label="Open the full-size screenshot"><img src="assets/media-library.png" width="1300" height="900" loading="lazy"
-              alt="The Media Library: thumbnails of photos with their size and last open date, and a large preview of the selected photo."></a>
-            <figcaption>Media Library, with a preview of each file</figcaption>
-          </figure>
-          <figure>
-            <a href="assets/activity.png" aria-label="Open the full-size screenshot"><img src="assets/activity.png" width="1300" height="900" loading="lazy"
-              alt="Activity: a list of moves, renames and moves to the Trash. Each one has an Undo button."></a>
-            <figcaption>Activity, where you can undo each change</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section id="privacy" class="section-alt">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Zero snooping, by design</h2>
-          <p>A storage app sees your whole disk. So SpaceWarden keeps everything on your Mac.</p>
-        </div>
-        <div class="split">
-          <div class="card">
-            <h3>Private</h3>
-            <ul class="checks">
-              <li>SpaceWarden works offline. It goes online only when you select
-                <strong>Check for Updates</strong>, and it sends nothing about you or your files.</li>
-              <li>No account, no tracking, no analytics.</li>
-              <li>Passwords, keys and private messages are never scanned or read.</li>
-              <li>File names, sizes and contents stay on your Mac. Previews and the duplicate
-                search read files on your Mac only.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Safe</h3>
-            <ul class="checks">
-              <li>Everything goes to the Trash first. You can put it back.</li>
-              <li><strong>Activity</strong> lists each move, rename and trash, and can undo it.</li>
-              <li>Each cleanup shows how safe it is and how the data comes back.</li>
-              <li>SpaceWarden never downloads or installs an update by itself.</li>
-            </ul>
-          </div>
-        </div>
-        <p class="fine center">Read the full <a href="security.html">Security &amp; Privacy</a>
-          page. This site has no analytics or trackers. GitHub hosts it.</p>
-      </div>
-    </section>
-
-    <section id="install">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Install in a minute</h2>
-          <p>SpaceWarden is a normal Mac app. There is no installer and no account.</p>
-        </div>
-        <div class="split">
-          <ol class="steps">
-            <li><strong>Download SpaceWarden.dmg</strong>
-              Get the latest version from
-              <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest">GitHub Releases</a>.
-              To make sure that the file is official,
-              <a href="security.html#checksum">check its checksum</a>.</li>
-            <li><strong>Drag it to Applications</strong>
-              Open the disk image, then drag SpaceWarden to the Applications folder.</li>
-            <li><strong>Open it with Open Anyway</strong>
-              The beta is not notarized yet, so macOS shows a warning. Click Done. Then open
-              System Settings → Privacy &amp; Security, and click <b>Open Anyway</b>.
-              <a href="security.html#beta">See the steps</a>.</li>
-            <li><strong>Click Full Scan</strong>
-              No setup is needed.</li>
-          </ol>
-          <div class="card">
-            <h3>Optional: count every folder</h3>
-            <p>SpaceWarden works without Full Disk Access. The scan then skips a few folders,
-              such as iCloud Drive and the data of other apps, so that macOS does not ask you
-              about each one.</p>
-            <p>To count these folders too, turn on Full Disk Access at any time. In SpaceWarden,
-              open <kbd>Settings</kbd> → <kbd>Privacy</kbd>, or click <strong>Include
-              Them…</strong> after a scan.</p>
-            <p>Passwords, keys and private messages stay off limits, with or without it.</p>
-          </div>
-        </div>
-        <div class="cta">
-          <a class="btn" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg">Download SpaceWarden.dmg</a>
-        </div>
-        <div class="notice">
-          <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
-            Developer ID system yet, so macOS shows a security warning. If you downloaded the
-            app from the official GitHub release, you can review the warning and use
-            <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> to run it.
-            Never turn off Gatekeeper.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="section-alt">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Questions</h2>
-        </div>
-        <div class="faq">
-          <details>
-            <summary>Why does macOS show a warning?</summary>
-            <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
-              Developer ID system yet. That costs a yearly fee, and the developer wants to hear
-              from testers first. macOS shows the same warning for each app that is not
-              notarized. <a href="security.html#checksum">Check the checksum</a>, then use
-              <a href="security.html#beta">Open Anyway</a>. Do not turn off Gatekeeper.</p>
-          </details>
-          <details>
-            <summary>Is SpaceWarden really free?</summary>
-            <p>Yes. SpaceWarden is free, with every feature. There is no trial and no ads. If you
-              like it, you can <a href="#support">support the developer</a>.</p>
-          </details>
-          <details>
-            <summary>Does SpaceWarden connect to the internet?</summary>
-            <p>Only when you select <strong>Check for Updates</strong>. Then it reads one small
-              file from GitHub and sends no information about you or your files. It never
-              accepts connections.</p>
-          </details>
-          <details>
-            <summary>Does it read my files?</summary>
-            <p>To measure space, SpaceWarden reads names, sizes and dates. It reads the contents
-              of a file only on your Mac, when you preview it or search for duplicates. It never
-              scans or reads passwords, keys or private messages.</p>
-          </details>
-          <details>
-            <summary>Can I undo a cleanup?</summary>
-            <p>Yes, for the default actions. They move items to the Trash, and Activity can put
-              them back. <strong>Delete Immediately</strong> and <strong>Empty Trash</strong>
-              cannot be undone, and SpaceWarden asks before it does them.</p>
-          </details>
-          <details>
-            <summary>How do updates work?</summary>
-            <p>Select <strong>SpaceWarden → Check for Updates…</strong>. If a new version is
-              available, download it from GitHub, quit SpaceWarden, and drag the new version to
-              Applications. Your settings stay.</p>
-          </details>
-          <details>
-            <summary>Do I need to give it Full Disk Access?</summary>
-            <p>No. Every feature works without it. Without it, the scan skips iCloud Drive,
-              cloud storage folders, the data of other apps and the Trash. If you want the scan
-              to count them too, turn it on in <strong>Settings → Privacy</strong>. You can turn
-              it off again in System Settings.</p>
-          </details>
-          <details>
-            <summary>Which Macs does it run on?</summary>
-            <p>Macs with macOS 15 Sequoia or later.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section id="support" class="support">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="heart" aria-hidden="true">☕</div>
-          <h2>Support the developer</h2>
-          <p>SpaceWarden is free. If it freed space for you, you can support its work. Each tip
-            helps to pay for the Apple developer account and new features.</p>
-        </div>
-        <div class="cta">
-          <a class="btn btn-accent" href="https://ko-fi.com/psi404" rel="noopener">Tip on Ko-fi</a>
-          <a class="btn btn-ghost" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/issues">Send feedback</a>
-        </div>
-        <p class="fine">A tip gives no extra features. Every feature is free for everyone.</p>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
@@ -347,7 +371,6 @@
         <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases">Release notes</a>
         <a href="security.html">Security &amp; Privacy</a>
         <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases">GitHub</a>
-        <a href="press.html">Press kit</a>
         <a href="https://ko-fi.com/psi404" rel="noopener">Ko-fi</a>
       </nav>
     </div>

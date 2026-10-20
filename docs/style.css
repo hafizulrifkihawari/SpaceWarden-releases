@@ -1,12 +1,16 @@
-/* SpaceWarden site. No web fonts, no scripts, no third-party files. */
+/* SpaceWarden site. No web fonts, no third-party files. Two small first-party scripts, cube.js and preview.js. */
 
 :root {
-  --bg: #f8fafc;
+  --bg: #f3f6fa;
   --surface: #ffffff;
-  --surface-2: #eef4fb;
+  --surface-2: #f7f9fc;
   --text: #0f172a;
-  --muted: #475569;
-  --border: #e2e8f0;
+  --muted: #5b6676;
+  --border: #dce3ec;
+  --backdrop-glow: #ffffff;
+  --cube-edge: #b4c2d4;
+  --cube-shade: #0f172a;
+  --cube-shadow: rgba(15, 23, 42, 0.26);
   --brand: #2563eb;
   --brand-2: #0d9488;
   --brand-ink: #ffffff;
@@ -16,37 +20,7 @@
   --shadow: 0 18px 40px -18px rgba(15, 23, 42, 0.35);
   --radius: 16px;
   --max: 1080px;
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0b1120;
-    --surface: #111a2e;
-    --surface-2: #14213b;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-    --border: #22304d;
-    --brand: #60a5fa;
-    --brand-2: #2dd4bf;
-    --brand-ink: #0b1120;
-    --safe: #4ade80;
-    --shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #0b1120;
-  --surface: #111a2e;
-  --surface-2: #14213b;
-  --text: #e2e8f0;
-  --muted: #94a3b8;
-  --border: #22304d;
-  --brand: #60a5fa;
-  --brand-2: #2dd4bf;
-  --brand-ink: #0b1120;
-  --safe: #4ade80;
-  --shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+  color-scheme: light;
 }
 
 *,
@@ -66,6 +40,8 @@ body {
   font: 17px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
     Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* The transparent shadow margin of the screenshots must not cause a side scroll. */
+  overflow-x: clip;
 }
 
 img {
@@ -216,6 +192,67 @@ summary:focus-visible {
   color: var(--accent-ink);
 }
 
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+/* The main download button: a brand gradient, an icon and a second line of small text. */
+.btn-download {
+  gap: 12px;
+  padding: 11px 26px 11px 20px;
+  text-align: left;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #3b82f6, var(--brand) 55%, #1d4ed8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 10px 24px -10px color-mix(in srgb, var(--brand) 70%, transparent);
+}
+
+.btn-download svg {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-download span {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-download small {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+/* A dark button, for the second download. */
+.btn-ink {
+  background: var(--text);
+  color: var(--surface);
+}
+
+/* A text button with an arrow that moves on hover. */
+.btn-link {
+  background: transparent;
+  color: var(--brand);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.btn-link:hover {
+  filter: none;
+  transform: none;
+}
+
+.btn-link svg {
+  transition: transform 0.15s ease;
+}
+
+.btn-link:hover svg {
+  transform: translateX(4px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -225,8 +262,13 @@ summary:focus-visible {
     transition: none;
   }
 
-  .btn:hover {
+  .btn:hover,
+  .btn-link:hover svg {
     transform: none;
+  }
+
+  .btn-link svg {
+    transition: none;
   }
 }
 
@@ -395,43 +437,82 @@ section {
   color: var(--muted);
 }
 
-/* Features */
+/* Features: an uneven 12-column grid. The storage map tile is large (top left) and the
+   media tile is wide (bottom left), so the grid has no mirror line. */
 
 .features {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .feature {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
-  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
   border-radius: var(--radius);
   padding: 22px;
 }
 
+.feature-lead {
+  grid-column: span 8;
+  grid-row: span 2;
+  justify-content: flex-end;
+  padding: 28px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 60%),
+    color-mix(in srgb, var(--brand) 5%, var(--surface));
+}
+
+.feature-wide {
+  grid-column: span 6;
+  background:
+    radial-gradient(120% 120% at 100% 100%, color-mix(in srgb, var(--brand-2) 14%, transparent), transparent 65%),
+    color-mix(in srgb, var(--brand-2) 5%, var(--surface));
+}
+
+.feature-wide ~ .feature {
+  grid-column: span 3;
+}
+
 .feature .ico {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  background: color-mix(in srgb, var(--brand) 14%, transparent);
+  display: flex;
   color: var(--brand);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.feature-wide .ico {
+  color: var(--brand-2);
 }
 
 .feature .ico svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
+}
+
+.feature-lead .ico {
+  margin-bottom: auto;
+  padding-bottom: 24px;
+}
+
+.feature-lead .ico svg {
+  width: 36px;
+  height: 36px;
 }
 
 .feature h3 {
   margin: 0 0 6px;
   font-size: 18px;
+}
+
+.feature-lead h3 {
+  font-size: 26px;
+  letter-spacing: -0.01em;
 }
 
 .feature p {
@@ -440,15 +521,64 @@ section {
   font-size: 16px;
 }
 
+.feature-lead p {
+  max-width: 34ch;
+  font-size: 17px;
+}
+
+/* A drawing of a storage bar, split by category. */
+.storage-bar {
+  display: flex;
+  gap: 3px;
+  height: 12px;
+  margin-top: 20px;
+}
+
+.storage-bar span {
+  border-radius: 999px;
+}
+
+.storage-bar span:nth-child(1) { flex: 34; background: var(--brand); }
+.storage-bar span:nth-child(2) { flex: 22; background: var(--brand-2); }
+.storage-bar span:nth-child(3) { flex: 14; background: var(--accent); }
+.storage-bar span:nth-child(4) { flex: 10; background: #94a3b8; }
+.storage-bar span:nth-child(5) { flex: 20; background: var(--border); }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .feature {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .feature:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -16px rgba(15, 23, 42, 0.3);
+  }
+}
+
 @media (max-width: 900px) {
   .features {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature,
+  .feature-wide,
+  .feature-wide ~ .feature {
+    grid-column: span 1;
+  }
+
+  .feature-lead {
+    grid-column: span 2;
+    grid-row: auto;
   }
 }
 
 @media (max-width: 600px) {
   .features {
     grid-template-columns: 1fr;
+  }
+
+  .feature-lead {
+    grid-column: span 1;
   }
 }
 
@@ -604,6 +734,24 @@ kbd {
   line-height: 1;
 }
 
+/* On the cube, Support has its own side. The color fills the side, and the content is in the
+   middle. */
+.is-cube .face:has(> .support) {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--brand) 18%, var(--bg)),
+    color-mix(in srgb, var(--brand-2) 18%, var(--bg)));
+}
+
+.is-cube .face:has(> .support):not(.is-open) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.is-cube .face > .support {
+  background: none;
+}
+
 /* Footer */
 
 .site-footer {
@@ -630,7 +778,7 @@ kbd {
   color: var(--muted);
 }
 
-/* Press page */
+/* Text pages (Security & Privacy) */
 
 .prose {
   max-width: 760px;
@@ -658,29 +806,6 @@ kbd {
   width: 34%;
   color: var(--muted);
   font-weight: 600;
-}
-
-.assets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.assets a {
-  display: block;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-  text-align: center;
-  font-size: 14px;
-  text-decoration: none;
-  color: var(--text);
-}
-
-.assets img {
-  width: 120px;
-  margin: 0 auto 8px;
 }
 
 /* Beta */
@@ -749,4 +874,657 @@ pre code {
 .prose ol li,
 .prose ul:not(.checks) li {
   margin: 6px 0;
+}
+
+/* Cube
+
+   cube.js adds .is-cube to <html> on large screens when the visitor allows motion. Then each
+   .face is one side of a cube. Without .is-cube, the page is a normal scroll page.
+
+   The sides are hinged like a paper net. --fold is 90deg for a closed cube and 0deg for a
+   flat net (a cross: top, then left, front, right, back, then bottom). Only --fold changes,
+   so the sides fold and unfold on their hinges. cube.js sets --s (the side length) and the
+   rotation of the cube. The durations here match FOLD_MS and OPEN_MS in cube.js. */
+
+@property --fold {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 90deg;
+}
+
+/* 1 when the cube is closed and its sides get shade from the light, 0 in the net. */
+@property --lit {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+.cube-ui,
+.face-open,
+.cube-links {
+  display: none;
+}
+
+/* The footer links, on the Support side. The footer is hidden while the cube shows. */
+.is-cube .cube-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cube-links a {
+  color: var(--muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.is-cube body {
+  overflow: hidden;
+}
+
+/* The cube fills the window. The tabs under it replace the header and the footer. */
+.is-cube .site-header,
+.is-cube .site-footer {
+  display: none;
+}
+
+.is-cube .cube-stage {
+  --s: 560px;
+  --ui: 112px;
+  --fold: 90deg;
+  --lift: calc(var(--s) / 2 * sin(var(--fold)));
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  perspective: calc(var(--s) * 3.4);
+  perspective-origin: 50% calc(50% - var(--ui) / 2);
+  background:
+    radial-gradient(52% 56% at 50% 44%, var(--backdrop-glow), transparent 78%),
+    var(--bg);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  transition:
+    --fold 0.7s cubic-bezier(0.6, 0.05, 0.25, 1),
+    --lit 0.4s;
+}
+
+.is-cube .cube-stage:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.is-cube .cube-stage.is-dragging {
+  cursor: grabbing;
+}
+
+.is-cube .cube-stage.is-net {
+  --fold: 0deg;
+  --lit: 0;
+  cursor: default;
+}
+
+/* The shadow under the closed cube: a dark core near the cube and a wide soft part. The
+   light comes from the top left, so the shadow moves a little to the right. */
+.is-cube .cube-stage::before {
+  content: "";
+  position: absolute;
+  left: calc(50% + var(--s) * 0.04);
+  top: calc(50% - var(--ui) / 2 + var(--s) * 0.5 - var(--s) * 0.02);
+  width: calc(var(--s) * 1.25);
+  height: calc(var(--s) * 0.14);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, var(--cube-shadow), transparent 60%),
+    radial-gradient(closest-side, rgba(15, 23, 42, 0.1), transparent);
+  filter: blur(4px);
+  transition: opacity 0.4s;
+}
+
+.is-cube .cube-stage.is-net::before {
+  opacity: 0;
+}
+
+.is-cube .cube-scaler {
+  position: absolute;
+  left: calc(50% - var(--s) / 2);
+  top: calc(50% - var(--ui) / 2 - var(--s) / 2);
+  width: var(--s);
+  height: var(--s);
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.6, 0.05, 0.25, 1);
+  /* The empty boxes of the scaler and the cube lie in the same plane as the side that faces
+     the viewer. Only the sides take clicks. */
+  pointer-events: none;
+}
+
+.is-cube .cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+/* When the net is flat, a flat cube lets z-index and sharp text work. */
+.is-cube .is-flat .cube {
+  transform-style: flat;
+}
+
+.is-cube .face {
+  --face-bg: var(--surface);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--s);
+  height: var(--s);
+  overflow: hidden;
+  background: var(--face-bg);
+  border: 1px solid var(--cube-edge);
+  border-radius: 4px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  font-size: 15px;
+  line-height: 1.5;
+  pointer-events: auto;
+}
+
+.is-cube .face:has(> .section-alt) {
+  --face-bg: var(--surface-2);
+}
+
+/* Shade from the light. cube.js sets --shade on each side from the angle of that side. */
+.is-cube .face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: var(--cube-shade);
+  opacity: calc(var(--shade, 0) * var(--lit));
+  pointer-events: none;
+}
+
+/* Each side carries the rotation of the whole cube (--rot, from cube.js) itself, and .cube
+   has no transform. Chrome misses clicks on a clipped side whose transform inside its parent
+   is edge-on, so a side that faces the viewer must also face the viewer in its own
+   transform. --push moves the cube back by half a side, so that the front side is at z = 0
+   and its text is sharp. All sides turn about the center of the cube. */
+.is-cube .cube-stage {
+  --push: translateZ(calc(var(--lift) * -1)) var(--rot, rotate3d(0, 1, 0, 0deg));
+}
+
+.is-cube .face[data-face="front"] {
+  --face-bg: var(--surface);
+  transform: var(--push) translateZ(var(--lift));
+}
+
+.is-cube .face[data-face="right"] {
+  transform:
+    var(--push) translateZ(var(--lift))
+    translateX(calc(var(--s) / 2)) rotateY(var(--fold)) translateX(calc(var(--s) / 2));
+}
+
+.is-cube .face[data-face="back"] {
+  transform:
+    var(--push) translateZ(var(--lift))
+    translateX(calc(var(--s) / 2)) rotateY(var(--fold))
+    translateX(var(--s)) rotateY(var(--fold)) translateX(calc(var(--s) / 2));
+}
+
+.is-cube .face[data-face="left"] {
+  transform:
+    var(--push) translateZ(var(--lift))
+    translateX(calc(var(--s) / -2)) rotateY(calc(var(--fold) * -1))
+    translateX(calc(var(--s) / -2));
+}
+
+.is-cube .face[data-face="top"] {
+  transform:
+    var(--push) translateZ(var(--lift))
+    translateY(calc(var(--s) / -2)) rotateX(var(--fold)) translateY(calc(var(--s) / -2));
+}
+
+.is-cube .face[data-face="bottom"] {
+  transform:
+    var(--push) translateZ(var(--lift))
+    translateY(calc(var(--s) / 2)) rotateX(calc(var(--fold) * -1))
+    translateY(calc(var(--s) / 2));
+}
+
+/* Open: the net is flat, and one side grows to fill the stage. cube.js sets --ox, --oy,
+   --ow and --oh. */
+.is-cube .is-flat .face {
+  transition:
+    transform 0.55s cubic-bezier(0.6, 0.05, 0.25, 1),
+    width 0.55s cubic-bezier(0.6, 0.05, 0.25, 1),
+    height 0.55s cubic-bezier(0.6, 0.05, 0.25, 1),
+    opacity 0.4s;
+}
+
+.is-cube .is-flat .cube-scaler {
+  transition-duration: 0.55s;
+}
+
+.is-cube .face.is-open {
+  z-index: 2;
+  width: var(--ow);
+  height: var(--oh);
+  transform: translate(var(--ox), var(--oy));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: auto;
+}
+
+.is-cube .is-reading .face:not(.is-open) {
+  opacity: 0.15;
+}
+
+.is-cube .face:not(.is-open) .face-extra {
+  display: none;
+}
+
+/* A side with more content than it can show gets a fade and an Open button. */
+.is-cube .face.is-overflowing:not(.is-open)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  background: linear-gradient(transparent, var(--face-bg) 70%);
+  pointer-events: none;
+}
+
+.is-cube .face.is-overflowing:not(.is-open) .face-open,
+.is-cube .face.has-more:not(.is-open) .face-open {
+  display: inline-flex;
+  gap: 8px;
+  padding: 9px 18px;
+  font-size: 15px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--text);
+  border-color: var(--border);
+  backdrop-filter: blur(8px);
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  box-shadow: var(--shadow);
+}
+
+.face-open svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Compact content on the sides of the cube. cube.js sets --zoom, so that the content fills a
+   large side. Zoom changes the layout, so the text stays sharp. */
+
+.is-cube .face > section,
+.is-cube .face > .hero {
+  zoom: var(--zoom, 1);
+}
+
+.is-cube .face section,
+.is-cube .face .hero {
+  padding: 26px 0;
+}
+
+.is-cube .face .wrap {
+  max-width: none;
+  padding: 0 26px;
+}
+
+.is-cube .face.is-open section,
+.is-cube .face.is-open .hero {
+  padding: 40px 0;
+}
+
+.is-cube .face.is-open .wrap {
+  max-width: var(--max);
+  padding: 0 36px;
+}
+
+.is-cube .face .section-head {
+  margin-bottom: 18px;
+}
+
+.is-cube .face .section-head h2 {
+  font-size: 26px;
+}
+
+.is-cube .face .hero-icon {
+  width: 120px;
+  height: 120px;
+}
+
+.is-cube .face .hero h1 {
+  font-size: 44px;
+}
+
+.is-cube .face .tagline {
+  font-size: 22px;
+  margin-top: 4px;
+}
+
+.is-cube .face .lead {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.is-cube .face .cta {
+  margin-top: 18px;
+}
+
+.is-cube .face .btn {
+  padding: 9px 18px;
+}
+
+.is-cube .face .fine {
+  font-size: 13px;
+}
+
+.is-cube .face .pillars {
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.is-cube .face .pillar,
+.is-cube .face .feature {
+  padding: 14px;
+}
+
+.is-cube .face .pillar h3,
+.is-cube .face .feature h3 {
+  font-size: 15px;
+}
+
+.is-cube .face .pillar p,
+.is-cube .face .feature p {
+  font-size: 14px;
+}
+
+.is-cube .face .features {
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+}
+
+.is-cube .face .feature .ico {
+  margin-bottom: 8px;
+}
+
+.is-cube .face .feature .ico svg {
+  width: 20px;
+  height: 20px;
+}
+
+.is-cube .face .feature-lead {
+  padding: 20px;
+}
+
+.is-cube .face .feature-lead .ico {
+  margin-bottom: auto;
+}
+
+.is-cube .face .feature-lead .ico svg {
+  width: 30px;
+  height: 30px;
+}
+
+.is-cube .face .feature-lead h3 {
+  font-size: 20px;
+}
+
+.is-cube .face .feature-lead p {
+  font-size: 15px;
+}
+
+.is-cube .face .storage-bar {
+  height: 10px;
+  margin-top: 14px;
+}
+
+.is-cube .face .gallery {
+  gap: 14px;
+}
+
+/* The closed cube shows one large screenshot. The net shows all of them. */
+.is-cube .face:not(.is-open) .gallery {
+  grid-template-columns: 1fr;
+}
+
+.is-cube .face .gallery figcaption {
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.is-cube .face .split {
+  gap: 16px;
+}
+
+.is-cube .face .card {
+  padding: 18px;
+}
+
+.is-cube .face .checks li {
+  margin: 6px 0;
+}
+
+.is-cube .face .steps li {
+  padding-left: 40px;
+  margin-bottom: 10px;
+}
+
+.is-cube .face .steps li::before {
+  width: 28px;
+  height: 28px;
+}
+
+.is-cube .face .faq details {
+  padding: 0 14px;
+  margin-bottom: 6px;
+}
+
+.is-cube .face .faq summary {
+  padding: 9px 0;
+}
+
+/* Controls under the cube */
+
+.is-cube .cube-ui {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: auto;
+}
+
+.cube-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.cube-tabs button,
+.cube-toggle {
+  font: inherit;
+  font-size: 14px;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.cube-tabs button:hover,
+.cube-toggle:hover {
+  color: var(--text);
+}
+
+.cube-tabs button[aria-current="true"] {
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+
+.cube-tabs button:focus-visible,
+.cube-toggle:focus-visible,
+.face-open:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.cube-help {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* A light pill behind the hint, so the text stays easy to read over the faded sides. */
+.cube-help > span {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.cube-toggle {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  padding: 4px 14px;
+}
+
+/* In the net, the toggle folds the cube back. It is a dark button, so it is easy to find. */
+.cube-toggle.is-fold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  font-size: 15px;
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--surface);
+  box-shadow: 0 10px 24px -10px rgba(15, 23, 42, 0.55);
+}
+
+.cube-toggle.is-fold:hover {
+  color: var(--surface);
+  background: #1e293b;
+}
+
+.cube-toggle.is-fold svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* cube.js moves focus to the heading of an opened side, for screen readers. The heading is
+   not a control, so it shows no focus ring. */
+.is-cube .face h1[tabindex="-1"]:focus,
+.is-cube .face h2[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* Screenshot preview (preview.js). */
+.preview {
+  max-width: 94vw;
+  max-height: 92vh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.preview::backdrop {
+  background: rgba(11, 13, 16, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.preview figure {
+  margin: 0;
+}
+
+.preview img {
+  max-width: 94vw;
+  max-height: 84vh;
+  width: auto;
+  margin: 0 auto;
+  border-radius: var(--radius);
+}
+
+.preview figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 15px;
+  color: #e8ebef;
+}
+
+.preview-close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  font: 400 26px/1 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.preview-close:hover {
+  background: var(--surface-2);
+}
+
+.preview-close:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .preview[open] {
+    animation: preview-in 0.2s ease-out;
+  }
+}
+
+@keyframes preview-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
 }
