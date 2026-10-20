@@ -23,7 +23,7 @@
     <div class="wrap">
       <a class="brand" href="./">
         <img src="assets/mascot-head-64.png" alt="" width="32" height="32">
-        SpaceWarden <span class="badge">Beta</span>
+        SpaceWarden
       </a>
       <nav class="nav" aria-label="Main">
         <a href="./#features">Features</a>
@@ -98,15 +98,12 @@
         </table>
         <p>SpaceWarden has no helper that runs as an administrator.</p>
 
-        <h2 id="beta">The beta and the macOS warning</h2>
-        <div class="notice">
-          <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
-            Developer ID system yet, so macOS shows a security warning. If you downloaded the
-            app from the official GitHub release, check the checksum below. Then open the app
-            with <strong>Open Anyway</strong>.</p>
-        </div>
+        <h2 id="first-open">Open it the first time</h2>
+        <p>macOS can show a warning the first time you open SpaceWarden. If you downloaded the
+          app from the official GitHub release, check the checksum below. Then open the app
+          with <strong>Open Anyway</strong>.</p>
         <ol>
-          <li>Open SpaceWarden from Applications. macOS shows a warning. Click
+          <li>Open SpaceWarden from Applications. If macOS shows a warning, click
             <strong>Done</strong>.</li>
           <li>Open <strong>System Settings → Privacy &amp; Security</strong>.</li>
           <li>Scroll to <strong>Security</strong>. Next to the SpaceWarden message, click
@@ -115,9 +112,8 @@
         </ol>
         <p>You do this one time for each version. Do not turn off Gatekeeper. SpaceWarden never
           asks you to do that.</p>
-        <p>In the beta, macOS forgets Full Disk Access after each update, because each beta
-          version has a new signature. If you use Full Disk Access, turn it on again after an
-          update.</p>
+        <p>macOS can forget Full Disk Access after an update. If you use Full Disk Access, check
+          it after an update, and turn it on again if necessary.</p>
 
         <h2 id="checksum">Check the download</h2>
         <p>Each release page shows a SHA-256 checksum of <code>SpaceWarden.dmg</code>. The file

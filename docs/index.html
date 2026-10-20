@@ -46,7 +46,7 @@
     <div class="wrap">
       <a class="brand" href="./">
         <img src="assets/mascot-head-64.png" alt="" width="32" height="32">
-        SpaceWarden <span class="badge">Beta</span>
+        SpaceWarden
       </a>
       <nav class="nav" aria-label="Main">
         <a href="#features">Features</a>
@@ -68,17 +68,14 @@
             <div class="hero">
               <div class="wrap">
                 <img class="hero-icon" src="assets/mascot-512.png" srcset="assets/mascot-1024.png 2x" alt="The SpaceWarden mascot: a cheerful warden with a thumbs-up and a vacuum cannon that sucks up files." width="240" height="240">
-                <span class="badge">Beta</span>
                 <h1>SpaceWarden</h1>
                 <p class="tagline">Tidy Mac. Zero snooping.</p>
                 <p class="lead">Free up space in a few clicks. Everything goes to the Trash first, and your
                   files never leave your Mac.</p>
                 <div class="cta">
-                  <a class="btn btn-download" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg><span>Download the beta<small>Free. macOS 15 Sequoia or later.</small></span></a>
+                  <a class="btn btn-download" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg><span>Download SpaceWarden<small>Free. macOS 15 Sequoia or later.</small></span></a>
                   <a class="btn btn-link" href="#features">Explore the features<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m0 0-5-5m5 5-5 5"/></svg></a>
                 </div>
-                <p class="fine">macOS shows a warning the first time you open it.
-                  <a href="security.html#beta">Read why, and how to open it</a>.</p>
                 <div class="shot-wrap face-extra">
                   <img class="shot" src="assets/overview.png" width="1300" height="900"
                     alt="The SpaceWarden Overview. Recommended actions list how much space each one frees and how safe it is.">
@@ -115,10 +112,10 @@
                       <a href="security.html#checksum">check its checksum</a>.</li>
                     <li><strong>Drag it to Applications</strong>
                       Open the disk image, then drag SpaceWarden to the Applications folder.</li>
-                    <li><strong>Open it with Open Anyway</strong>
-                      The beta is not notarized yet, so macOS shows a warning. Click Done. Then open
+                    <li><strong>Open SpaceWarden</strong>
+                      Open it from Applications. If macOS shows a warning, click Done. Then open
                       System Settings → Privacy &amp; Security, and click <b>Open Anyway</b>.
-                      <a href="security.html#beta">See the steps</a>.</li>
+                      <a href="security.html#first-open">See the steps</a>.</li>
                     <li><strong>Click Full Scan</strong>
                       No setup is needed.</li>
                   </ol>
@@ -135,13 +132,6 @@
                 </div>
                 <div class="cta">
                   <a class="btn btn-ink" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>Download SpaceWarden.dmg</a>
-                </div>
-                <div class="notice">
-                  <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
-                    Developer ID system yet, so macOS shows a security warning. If you downloaded the
-                    app from the official GitHub release, you can review the warning and use
-                    <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> to run it.
-                    Never turn off Gatekeeper.</p>
                 </div>
               </div>
             </section>
@@ -283,12 +273,11 @@
                 </div>
                 <div class="faq">
                   <details>
-                    <summary>Why does macOS show a warning?</summary>
-                    <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
-                      Developer ID system yet. That costs a yearly fee, and the developer wants to hear
-                      from testers first. macOS shows the same warning for each app that is not
-                      notarized. <a href="security.html#checksum">Check the checksum</a>, then use
-                      <a href="security.html#beta">Open Anyway</a>. Do not turn off Gatekeeper.</p>
+                    <summary>What if macOS shows a warning?</summary>
+                    <p>macOS can show a warning the first time you open an app from the internet.
+                      If you got SpaceWarden from the official GitHub release,
+                      <a href="security.html#checksum">check the checksum</a>. Then use
+                      <a href="security.html#first-open">Open Anyway</a>. Do not turn off Gatekeeper.</p>
                   </details>
                   <details>
                     <summary>Is SpaceWarden really free?</summary>
@@ -342,7 +331,7 @@
                   <div class="heart" aria-hidden="true">☕</div>
                   <h2>Support the developer</h2>
                   <p>SpaceWarden is free. If it freed space for you, you can support its work. Each tip
-                    helps to pay for the Apple developer account and new features.</p>
+                    helps to pay for new features and updates.</p>
                 </div>
                 <div class="cta">
                   <a class="btn btn-accent" href="https://ko-fi.com/psi404" rel="noopener">Tip on Ko-fi</a>

@@ -9,11 +9,6 @@ This repository holds the downloads and the update information. The source code 
 
 ## Download
 
-> **Beta.** SpaceWarden is an early beta. It is not signed and notarized through Apple's
-> Developer ID system yet, so macOS shows a security warning. If you downloaded the app from
-> the official GitHub release, you can review the warning and use **System Settings → Privacy
-> & Security → Open Anyway** to run it. Never turn off Gatekeeper.
-
 Get the latest disk image from [Releases](../../releases/latest).
 
 1. Download `SpaceWarden.dmg`.
@@ -21,12 +16,12 @@ Get the latest disk image from [Releases](../../releases/latest).
    must match the checksum on the release page (also in `SpaceWarden.dmg.sha256`). If it does
    not match, delete the file.
 3. Open the disk image, then drag SpaceWarden to the Applications folder.
-4. Open SpaceWarden from Applications. macOS shows a warning. Click **Done**.
-5. Open **System Settings → Privacy & Security**, then click **Open Anyway** next to the
+4. Open SpaceWarden from Applications. If macOS shows a warning, click **Done**.
+5. Then open **System Settings → Privacy & Security**, and click **Open Anyway** next to the
    SpaceWarden message. Enter your password.
 6. Click **Full Scan**.
 
-In the beta, macOS forgets Full Disk Access after each update. If you use it, turn it on again.
+macOS can forget Full Disk Access after an update. If you use it, check it after an update.
 
 Full Disk Access is optional. Without it, the scan skips iCloud Drive, cloud storage, the data
 of other apps and the Trash. To count them too, turn it on in **Settings → Privacy**.

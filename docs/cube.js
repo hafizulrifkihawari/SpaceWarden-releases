@@ -2,7 +2,8 @@
 
    On large screens, the sections become the six sides of a cube. The visitor turns the cube
    by drag, scroll wheel, arrow keys or the tabs under it. "Unfold" unfolds the cube into a flat
-   net and grows one side to show all of its content. On small screens, with reduced motion,
+   net and grows one side to show all of its content. "How it works" shows a guide to the
+   controls. On small screens, with reduced motion,
    or without this script, the page stays a normal scroll page. No libraries. */
 
 (function () {
@@ -229,7 +230,17 @@
       open(current);
     }
   });
-  help.append(hint, toggle);
+  var guideButton = document.createElement("button");
+  guideButton.type = "button";
+  guideButton.className = "cube-guide-open";
+  guideButton.setAttribute("aria-haspopup", "dialog");
+  guideButton.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6' +
+    'M12 17h.01"/></svg>How it works';
+  guideButton.addEventListener("click", showGuide);
+  help.append(hint, toggle, guideButton);
   var live = document.createElement("p");
   live.className = "visually-hidden";
   live.setAttribute("aria-live", "polite");
@@ -249,6 +260,73 @@
     });
     faces[name].appendChild(button);
   });
+
+  // The guide explains the controls. Its map shows the sides as the net shows them. A click
+  // on a side in the map goes to that side.
+  var guide = document.createElement("dialog");
+  guide.className = "cube-guide";
+  guide.setAttribute("aria-labelledby", "cube-guide-title");
+  guide.innerHTML =
+    '<button type="button" class="preview-close" aria-label="Close the guide">&times;</button>' +
+    '<h2 id="cube-guide-title">How the cube works</h2>' +
+    "<p>Each side of the cube is one part of this page. Home is in the middle. The cube " +
+    "unfolds into this map.</p>" +
+    '<div class="guide-map" role="group" aria-label="Map of the sides"></div>' +
+    '<div class="guide-steps">' +
+    "<section><h3>Turn the cube</h3><ul>" +
+    "<li>Drag the cube.</li>" +
+    "<li>Scroll with the mouse or the trackpad.</li>" +
+    "<li>Press an arrow key. The side in that direction comes to the front.</li>" +
+    "<li>Click a name in the bar under the cube.</li>" +
+    "</ul></section>" +
+    "<section><h3>Unfold a side</h3><ul>" +
+    "<li>Press <kbd>Enter</kbd>.</li>" +
+    "<li>Click <b>Unfold</b> or <b>Unfold this side</b>.</li>" +
+    "<li>The side grows, so you can read all of it.</li>" +
+    "</ul></section>" +
+    "<section><h3>When it is unfolded</h3><ul>" +
+    "<li>Press an arrow key to go to the next side.</li>" +
+    "<li>On a long side, <kbd>↑</kbd> and <kbd>↓</kbd> scroll first.</li>" +
+    "<li>Press <kbd>Esc</kbd>, click <b>Fold back</b> or click outside the side to " +
+    "fold it back.</li>" +
+    "</ul></section>" +
+    "</div>" +
+    '<p class="guide-foot">Press <kbd>?</kbd> to show this guide again.</p>';
+  var guideMap = guide.querySelector(".guide-map");
+  var guideCells = {};
+  ORDER.forEach(function (name) {
+    var cell = document.createElement("button");
+    cell.type = "button";
+    cell.textContent = faces[name].dataset.label;
+    cell.style.gridColumn = SIDES[name].cell[0] + 2;
+    cell.style.gridRow = SIDES[name].cell[1] + 2;
+    cell.addEventListener("click", function () {
+      guide.close();
+      if (mode === "open") {
+        switchOpen(name);
+      } else if (mode === "idle" || mode === "turn") {
+        turnTo(name);
+      }
+    });
+    guideCells[name] = cell;
+    guideMap.appendChild(cell);
+  });
+  guide.querySelector(".preview-close").addEventListener("click", function () {
+    guide.close();
+  });
+  // A click on the backdrop has the dialog itself as its target.
+  guide.addEventListener("click", function (e) {
+    if (e.target === guide) guide.close();
+  });
+
+  function showGuide() {
+    var here = mode === "open" ? openSide : current;
+    ORDER.forEach(function (name) {
+      guideCells[name].setAttribute("aria-current", name === here ? "true" : "false");
+    });
+    if (!guide.isConnected) document.body.appendChild(guide);
+    guide.showModal();
+  }
 
   function render() {
     var tiltX = "rotateX(" + tilt[0].toFixed(3) + "deg) ";
@@ -713,8 +791,13 @@
 
   document.addEventListener("keydown", function (e) {
     if (!active || e.altKey || e.metaKey || e.ctrlKey) return;
-    // The screenshot preview handles its own keys.
+    // The screenshot preview and the guide handle their own keys.
     if (document.querySelector("dialog[open]")) return;
+    if (e.key === "?" && !e.target.closest("input, textarea, select")) {
+      e.preventDefault();
+      showGuide();
+      return;
+    }
     if (mode === "open") {
       if (e.key === "Escape") {
         close();
@@ -799,6 +882,7 @@
     stopTurn();
     cancelAnimationFrame(tiltFrame);
     tiltFrame = 0;
+    if (guide.open) guide.close();
     drag = null;
     keyQueue = [];
     openSide = null;
