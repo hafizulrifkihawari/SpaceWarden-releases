@@ -682,3 +682,71 @@ kbd {
   width: 120px;
   margin: 0 auto 8px;
 }
+
+/* Beta */
+
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.hero .badge {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.notice {
+  margin: 20px 0;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  text-align: left;
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice p + p {
+  margin-top: 10px;
+}
+
+/* Security page */
+
+code {
+  font: 0.9em ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  word-break: break-all;
+}
+
+pre {
+  margin: 10px 0;
+  overflow-x: auto;
+}
+
+pre code {
+  display: block;
+  padding: 12px 14px;
+  word-break: normal;
+}
+
+.facts td {
+  overflow-wrap: anywhere;
+}
+
+.prose ol li,
+.prose ul:not(.checks) li {
+  margin: 6px 0;
+}

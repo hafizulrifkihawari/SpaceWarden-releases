@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpaceWarden Security &amp; Privacy</title>
+  <meta name="description" content="What SpaceWarden reads, what it stores, when it connects, which macOS permissions it uses, and how to check the download.">
+  <link rel="canonical" href="https://hafizulrifkihawari.github.io/SpaceWarden-releases/security.html">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="referrer" content="no-referrer">
+  <meta property="og:title" content="SpaceWarden Security &amp; Privacy">
+  <meta property="og:description" content="What SpaceWarden reads, stores and sends, and how to check the download.">
+  <meta property="og:image" content="https://hafizulrifkihawari.github.io/SpaceWarden-releases/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/mascot-head-64.png" alt="" width="32" height="32">
+        SpaceWarden <span class="badge">Beta</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="./#features">Features</a>
+        <a href="./#install">Install</a>
+        <a href="./#faq">FAQ</a>
+        <a class="btn btn-small" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section>
+      <div class="wrap prose">
+        <h1>Security &amp; Privacy</h1>
+        <p>A storage app can see your whole disk. This page tells you what SpaceWarden does
+          with that access, so you can decide if you trust it.</p>
+
+        <h2 id="summary">In short</h2>
+        <ul class="checks">
+          <li>No account. You do not sign in.</li>
+          <li>No analytics, no telemetry and no crash reports.</li>
+          <li>No upload. All processing is on your Mac.</li>
+          <li>Passwords, keys and private messages are never scanned or read.</li>
+          <li>The app connects to the internet only when you select
+            <strong>Check for Updates</strong>.</li>
+        </ul>
+
+        <h2 id="reads">What SpaceWarden reads</h2>
+        <p>To measure space, SpaceWarden reads the names, sizes and dates of your files. It
+          reads the contents of a file only when you preview it or search for duplicates. This
+          also happens only on your Mac.</p>
+        <p>SpaceWarden never scans or reads these items. No setting can change this:</p>
+        <ul>
+          <li>Keychains and password managers.</li>
+          <li>SSH and GPG keys.</li>
+          <li>Cloud and developer credentials, for example <code>~/.aws</code> and
+            <code>~/.kube</code>.</li>
+          <li>The macOS privacy database.</li>
+        </ul>
+        <p>Mail, Messages and other private data are off by default.</p>
+
+        <h2 id="stores">What SpaceWarden stores</h2>
+        <p>SpaceWarden can remember the last scan, so it opens fast. The file holds file names
+          and sizes, never contents. It is in
+          <code>~/Library/Application Support/SpaceWarden</code>, and only your user
+          account can read it. To turn this off or delete the file, open
+          <strong>Settings → Privacy</strong> and use <strong>Remember the last scan on this
+          Mac</strong> or <strong>Delete Saved Scan</strong>.</p>
+
+        <h2 id="network">When SpaceWarden connects</h2>
+        <p>SpaceWarden connects only when you select <strong>SpaceWarden → Check for
+          Updates…</strong>. Then it makes one HTTPS request to
+          <code>raw.githubusercontent.com</code> and reads the small file
+          <code>update.json</code> from this project. It sends no information about you or your
+          files. It never accepts connections.</p>
+        <p>If a new version is available, SpaceWarden shows a link to the release page on
+          GitHub. It never downloads or installs an update by itself. You choose when to
+          update.</p>
+        <p>This website has no analytics or trackers. GitHub hosts it.</p>
+
+        <h2 id="permissions">macOS permissions</h2>
+        <table class="facts">
+          <tbody>
+          <tr><th scope="row">Full Disk Access</th><td>Optional. SpaceWarden never asks for it
+            by itself. Without it, the scan skips iCloud Drive, cloud storage folders, the data
+            of other apps and the Trash. Every feature still works. To count these folders too,
+            turn it on in <strong>Settings → Privacy</strong>.</td></tr>
+          <tr><th scope="row">Automation (Finder)</th><td>Asked only when you uninstall an app
+            that the system owns. SpaceWarden then asks Finder to move that app to the
+            Trash.</td></tr>
+          </tbody>
+        </table>
+        <p>SpaceWarden has no helper that runs as an administrator.</p>
+
+        <h2 id="beta">The beta and the macOS warning</h2>
+        <div class="notice">
+          <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
+            Developer ID system yet, so macOS shows a security warning. If you downloaded the
+            app from the official GitHub release, check the checksum below. Then open the app
+            with <strong>Open Anyway</strong>.</p>
+        </div>
+        <ol>
+          <li>Open SpaceWarden from Applications. macOS shows a warning. Click
+            <strong>Done</strong>.</li>
+          <li>Open <strong>System Settings → Privacy &amp; Security</strong>.</li>
+          <li>Scroll to <strong>Security</strong>. Next to the SpaceWarden message, click
+            <strong>Open Anyway</strong>.</li>
+          <li>Enter your password, then click <strong>Open Anyway</strong> again.</li>
+        </ol>
+        <p>You do this one time for each version. Do not turn off Gatekeeper. SpaceWarden never
+          asks you to do that.</p>
+        <p>In the beta, macOS forgets Full Disk Access after each update, because each beta
+          version has a new signature. If you use Full Disk Access, turn it on again after an
+          update.</p>
+
+        <h2 id="checksum">Check the download</h2>
+        <p>Each release page shows a SHA-256 checksum of <code>SpaceWarden.dmg</code>. The file
+          <code>SpaceWarden.dmg.sha256</code> on the release page holds the same value. To make
+          sure that you have the official file:</p>
+        <ol>
+          <li>Open Terminal.</li>
+          <li>Type this command, then press Return:
+            <pre><code>shasum -a 256 ~/Downloads/SpaceWarden.dmg</code></pre></li>
+          <li>Compare the result with the checksum on the release page.</li>
+        </ol>
+        <p>If the two values are not the same, do not open the file. Delete it, and download it
+          again from the
+          <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases">official
+          release page</a>.</p>
+
+        <h2 id="report">Report a problem</h2>
+        <p>If you find a security or privacy problem, open an
+          <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/issues">issue on
+          GitHub</a>. Do not put your file names or other private data in the issue.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© 2026 SpaceWarden</span>
+      <nav aria-label="Footer">
+        <a href="./">Home</a>
+        <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases">Release notes</a>
+        <a href="press.html">Press kit</a>
+        <a href="https://ko-fi.com/psi404" rel="noopener">Ko-fi</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

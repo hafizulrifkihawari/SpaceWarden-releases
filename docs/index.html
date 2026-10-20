@@ -44,15 +44,16 @@
     <div class="wrap">
       <a class="brand" href="./">
         <img src="assets/mascot-head-64.png" alt="" width="32" height="32">
-        SpaceWarden
+        SpaceWarden <span class="badge">Beta</span>
       </a>
       <nav class="nav" aria-label="Main">
         <a href="#features">Features</a>
         <a href="#privacy">Privacy</a>
+        <a href="security.html">Security</a>
         <a href="#install">Install</a>
         <a href="#faq">FAQ</a>
         <a href="#support">Support</a>
-        <span class="btn btn-small btn-soon" aria-disabled="true">Coming soon</span>
+        <a class="btn btn-small" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg">Download</a>
       </nav>
     </div>
   </header>
@@ -61,16 +62,18 @@
     <div class="hero">
       <div class="wrap">
         <img class="hero-icon" src="assets/mascot-512.png" srcset="assets/mascot-1024.png 2x" alt="The SpaceWarden mascot: a cheerful warden with a thumbs-up and a vacuum cannon that sucks up files." width="240" height="240">
+        <span class="badge">Beta</span>
         <h1>SpaceWarden</h1>
         <p class="tagline">Tidy Mac. Zero snooping.</p>
         <p class="lead">Free up space in a few clicks. Everything goes to the Trash first, and your
           files never leave your Mac.</p>
         <div class="cta">
-          <span class="btn btn-soon" aria-disabled="true">Coming soon for Mac</span>
+          <a class="btn" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg">Download the beta for Mac</a>
           <a class="btn btn-ghost" href="#features">See what it does</a>
         </div>
-        <p class="fine">Free. macOS 15 Sequoia or later.<br>
-          To hear about the first release, <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases">watch the repository on GitHub</a> (Watch → Custom → Releases).</p>
+        <p class="fine">Free beta. macOS 15 Sequoia or later.<br>
+          macOS shows a warning the first time you open it.
+          <a href="security.html#beta">Read why, and how to open it</a>.</p>
 
         <div class="shot-wrap">
           <img class="shot" src="assets/overview.png" width="1300" height="900"
@@ -211,8 +214,8 @@
             </ul>
           </div>
         </div>
-        <p class="fine center">This site has no analytics or trackers. GitHub
-          hosts it.</p>
+        <p class="fine center">Read the full <a href="security.html">Security &amp; Privacy</a>
+          page. This site has no analytics or trackers. GitHub hosts it.</p>
       </div>
     </section>
 
@@ -225,12 +228,18 @@
         <div class="split">
           <ol class="steps">
             <li><strong>Download SpaceWarden.dmg</strong>
-              When it is out, get the latest version from
-              <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest">GitHub Releases</a>.</li>
+              Get the latest version from
+              <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest">GitHub Releases</a>.
+              To make sure that the file is official,
+              <a href="security.html#checksum">check its checksum</a>.</li>
             <li><strong>Drag it to Applications</strong>
               Open the disk image, then drag SpaceWarden to the Applications folder.</li>
-            <li><strong>Open SpaceWarden</strong>
-              Open it from Applications and click Full Scan. No setup is needed.</li>
+            <li><strong>Open it with Open Anyway</strong>
+              The beta is not notarized yet, so macOS shows a warning. Click Done. Then open
+              System Settings → Privacy &amp; Security, and click <b>Open Anyway</b>.
+              <a href="security.html#beta">See the steps</a>.</li>
+            <li><strong>Click Full Scan</strong>
+              No setup is needed.</li>
           </ol>
           <div class="card">
             <h3>Optional: count every folder</h3>
@@ -244,7 +253,14 @@
           </div>
         </div>
         <div class="cta">
-          <span class="btn btn-soon" aria-disabled="true">Coming soon</span>
+          <a class="btn" href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases/latest/download/SpaceWarden.dmg">Download SpaceWarden.dmg</a>
+        </div>
+        <div class="notice">
+          <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
+            Developer ID system yet, so macOS shows a security warning. If you downloaded the
+            app from the official GitHub release, you can review the warning and use
+            <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> to run it.
+            Never turn off Gatekeeper.</p>
         </div>
       </div>
     </section>
@@ -255,6 +271,14 @@
           <h2>Questions</h2>
         </div>
         <div class="faq">
+          <details>
+            <summary>Why does macOS show a warning?</summary>
+            <p>SpaceWarden is an early beta. It is not signed and notarized through Apple's
+              Developer ID system yet. That costs a yearly fee, and the developer wants to hear
+              from testers first. macOS shows the same warning for each app that is not
+              notarized. <a href="security.html#checksum">Check the checksum</a>, then use
+              <a href="security.html#beta">Open Anyway</a>. Do not turn off Gatekeeper.</p>
+          </details>
           <details>
             <summary>Is SpaceWarden really free?</summary>
             <p>Yes. SpaceWarden is free, with every feature. There is no trial and no ads. If you
@@ -321,6 +345,7 @@
       <span>© 2026 SpaceWarden</span>
       <nav aria-label="Footer">
         <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases/releases">Release notes</a>
+        <a href="security.html">Security &amp; Privacy</a>
         <a href="https://github.com/hafizulrifkihawari/SpaceWarden-releases">GitHub</a>
         <a href="press.html">Press kit</a>
         <a href="https://ko-fi.com/psi404" rel="noopener">Ko-fi</a>
