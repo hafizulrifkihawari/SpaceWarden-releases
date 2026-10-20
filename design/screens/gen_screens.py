@@ -8,6 +8,7 @@ data for a made-up user "alex". No real file name or path goes in. Run:
 
 The text of the cards comes from StorageAdvisor.swift. Keep it in sync when the app changes.
 """
+import json
 import math
 import random
 import sys
@@ -315,7 +316,10 @@ CARDS = [
 ]
 
 
-def overview():
+def overview(base=False, only=None):
+    """base=True: the background of the animated overview, with no cards. It writes the boxes
+    of the cards and their close buttons into the page for gen_overview_anim.py.
+    only=i: card i alone, on a clear background, as one layer of the animation."""
     cards = []
     for sym, title, cls, badge, size, reason, after, button in CARDS:
         cards.append(f'''<div class="card"><div class="sym">{icon(sym)}</div><div class="body">
@@ -328,7 +332,29 @@ def overview():
 {"".join(cards)}'''
     body = f'''<div class="window">{sidebar("overview")}<div class="main">{toolbar("Overview")}
 <div class="content">{content}</div></div></div>'''
+    if base:
+        body += "<style>.card { visibility: hidden; }</style>" + boxes_script(
+            {"cards": ".card", "close": ".card .x"})
+    if only is not None:
+        body += (f"<style>body {{ visibility: hidden; }} .window {{ box-shadow: none; }}\n"
+                 f".card:nth-child({only + 1} of .card) {{ visibility: visible; }}</style>")
     return page(body, "Overview")
+
+
+def boxes_script(lists):
+    """A script that writes the boxes of the elements for each selector into the page."""
+    pairs = ",\n".join(
+        f'  {name}: [].map.call(document.querySelectorAll("{sel}"), box)'
+        for name, sel in lists.items())
+    return f'''<pre id="boxes" hidden></pre><script>
+function box(el) {{
+  var r = el.getBoundingClientRect();
+  return {{ x: r.left, y: r.top, w: r.width, h: r.height }};
+}}
+document.getElementById("boxes").textContent = JSON.stringify({{
+{pairs}
+}});
+</script>'''
 
 
 # 2. Space and Storage Map ---------------------------------------------------------------
@@ -359,11 +385,15 @@ def arc(cx, cy, r0, r1, a0, a1, fill):
             f'stroke="#27292d" stroke-width="0.8"/>')
 
 
-def sunburst(size=300):
+RINGS = [(34, 62), (62, 86), (86, 108), (108, 128), (128, 146)]
+
+
+def sunburst_segments():
+    """Each segment is (category index, depth, start angle, end angle, fill)."""
     rnd = random.Random(7)
-    c = size / 2
-    rings = [(34, 62), (62, 86), (86, 108), (108, 128), (128, 146)]
+    rings = RINGS
     parts = []
+    cat = 0
 
     def split(a0, a1, depth, color):
         if depth >= len(rings) or a1 - a0 < 1.2:
@@ -380,16 +410,23 @@ def sunburst(size=300):
         for w in weights:
             b = a + span * w / sum(weights)
             factor = [0.86, 0.76, 0.66, 0.58, 0.52][depth] * rnd.uniform(0.92, 1.06)
-            parts.append(arc(c, c, r0, r1, a, b, shade(color, factor)))
+            parts.append((cat, depth, a, b, shade(color, factor)))
             split(a, b, depth + 1, color)
             a = b
 
     a = 0.0
-    for name, _, color, gb in CATS:
+    for cat, (name, _, color, gb) in enumerate(CATS):
         b = a + 360 * gb / TOTAL
-        parts.append(arc(c, c, rings[0][0], rings[0][1], a, b, shade(color, 0.86)))
+        parts.append((cat, 0, a, b, shade(color, 0.86)))
         split(a, b, 1, color)
         a = b
+    return parts
+
+
+def sunburst(size=300):
+    c = size / 2
+    parts = [arc(c, c, *RINGS[depth], a0, a1, fill)
+             for _, depth, a0, a1, fill in sunburst_segments()]
     center = (f'<circle cx="{c}" cy="{c}" r="33" fill="#2a2c2f"/>'
               f'<text x="{c}" y="{c - 9}" fill="#ececed" font-size="11" text-anchor="middle">All'
               f'</text><text x="{c}" y="{c + 6}" fill="#ececed" font-size="11" '
@@ -399,7 +436,9 @@ def sunburst(size=300):
             f'font-family="-apple-system, sans-serif">{"".join(parts)}{center}</svg>')
 
 
-def storage_map():
+def storage_map(base=False):
+    """base=True: the background of the animated map. It hides the sunburst and the bars,
+    and writes their boxes into the page for gen_storage_anim.py."""
     scanned, outside, purge, free = TOTAL, 41.27, 6.83, 263.66
     disk = scanned + outside + purge + free
     bar = "".join(f'<i style="flex:{v / disk:.4f};background:{col}"></i>' for v, col in [
@@ -437,7 +476,22 @@ def storage_map():
 where it is.</div>{cats}</div></div>'''
     body = f'''<div class="window">{sidebar("overview")}<div class="main">{toolbar("Overview")}
 <div class="content">{content}</div></div></div>'''
+    if base:
+        body += BASE_EXTRA
     return page(body, "Storage Map")
+
+
+BASE_EXTRA = "<style>.map svg, .cat .track i { visibility: hidden; }</style>" + boxes_script(
+    {"sunburst": ".map svg", "bars": ".cat .track i", "rows": ".cat"})
+
+
+def storage_map_data():
+    return json.dumps({
+        "rings": RINGS,
+        "total": round(TOTAL, 2),
+        "cats": [{"name": n, "color": col, "gb": gb} for n, _, col, gb in CATS],
+        "segments": sunburst_segments(),
+    })
 
 
 # 3. Duplicates --------------------------------------------------------------------------
@@ -663,7 +717,12 @@ can undo each one.</span><span class="btn">Clear History</span></div>
 
 
 (OUT / "overview.html").write_text(overview())
+(OUT / "overview-base.html").write_text(overview(base=True))
+for i in range(len(CARDS)):
+    (OUT / f"overview-card{i + 1}.html").write_text(overview(only=i))
 (OUT / "storage-map.html").write_text(storage_map())
+(OUT / "storage-map-base.html").write_text(storage_map(base=True))
+(OUT / "storage-map.json").write_text(storage_map_data())
 (OUT / "duplicates.html").write_text(duplicates())
 (OUT / "media-library.html").write_text(media_library())
 (OUT / "activity.html").write_text(activity())

@@ -7,3 +7,5 @@
   with demo data for a made-up user "alex", so no real file name or path is in them. Run
   `python3 -I design/screens/gen_screens.py design/screens/out`, then
   `design/screens/render.sh` (needs Google Chrome). Update the HTML when the app UI changes.
+  `render.sh` also makes the animated `overview.svg` and `storage-map.svg`, with
+  `gen_overview_anim.py` and `gen_storage_anim.py`.

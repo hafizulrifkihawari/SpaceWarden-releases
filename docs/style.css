@@ -198,11 +198,10 @@ summary:focus-visible {
   flex: none;
 }
 
-/* The main download button: a brand gradient, an icon and a second line of small text. */
+/* The main download button: a brand gradient, an icon and the word "Download". */
 .btn-download {
-  gap: 12px;
-  padding: 11px 26px 11px 20px;
-  text-align: left;
+  gap: 10px;
+  padding: 12px 26px 12px 20px;
   line-height: 1.2;
   background: linear-gradient(135deg, #3b82f6, var(--brand) 55%, #1d4ed8);
   box-shadow:
@@ -213,17 +212,6 @@ summary:focus-visible {
 .btn-download svg {
   width: 22px;
   height: 22px;
-}
-
-.btn-download span {
-  display: flex;
-  flex-direction: column;
-}
-
-.btn-download small {
-  font-size: 12px;
-  font-weight: 500;
-  opacity: 0.85;
 }
 
 /* A dark button, for the second download. */
@@ -318,6 +306,13 @@ summary:focus-visible {
   gap: 12px;
   justify-content: center;
   margin-top: 28px;
+}
+
+/* A second way to get the app, if the download button does not work. */
+.cta-alt {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--muted);
 }
 
 .center {
@@ -863,6 +858,8 @@ pre code {
 }
 
 .cube-ui,
+.cube-arrow,
+.cube-close,
 .face-open,
 .cube-links {
   display: none;
@@ -906,7 +903,7 @@ pre code {
 
 .is-cube .cube-stage {
   --s: 560px;
-  --ui: 112px;
+  --ui: 64px;
   --fold: 90deg;
   --lift: calc(var(--s) / 2 * sin(var(--fold)));
   position: fixed;
@@ -1339,7 +1336,7 @@ pre code {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 16px;
+  bottom: 6px;
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -1358,8 +1355,7 @@ pre code {
   box-shadow: var(--shadow);
 }
 
-.cube-tabs button,
-.cube-toggle {
+.cube-tabs button {
   font: inherit;
   font-size: 14px;
   border: 0;
@@ -1370,8 +1366,7 @@ pre code {
   cursor: pointer;
 }
 
-.cube-tabs button:hover,
-.cube-toggle:hover {
+.cube-tabs button:hover {
   color: var(--text);
 }
 
@@ -1381,88 +1376,109 @@ pre code {
 }
 
 .cube-tabs button:focus-visible,
-.cube-toggle:focus-visible,
 .face-open:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
-.cube-help {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
+/* The arrows are at the edges of the stage, away from the cube. The left and right arrows
+   are level with the center of the cube. The down arrow is above the controls. */
+.is-cube .cube-arrow {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
   color: var(--muted);
-}
-
-/* A light pill behind the hint, so the text stays easy to read over the faded sides. */
-.cube-help > span {
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 85%, transparent);
-  backdrop-filter: blur(8px);
-}
-
-.cube-toggle {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  font-weight: 600;
-  padding: 4px 14px;
-}
-
-/* In the net, the toggle folds the cube back. It is a dark button, so it is easy to find. */
-.cube-toggle.is-fold {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  font-size: 15px;
-  background: var(--text);
-  border-color: var(--text);
-  color: var(--surface);
-  box-shadow: 0 10px 24px -10px rgba(28, 25, 23, 0.55);
-}
-
-.cube-toggle.is-fold:hover {
-  color: var(--surface);
-  background: #292524;
-}
-
-.cube-toggle.is-fold svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* "How it works" opens the guide. */
-.cube-guide-open {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 85%, transparent);
-  backdrop-filter: blur(8px);
-  color: var(--brand);
+  box-shadow: 0 6px 16px -10px rgba(28, 25, 23, 0.45);
   cursor: pointer;
+  transition: color 0.2s, transform 0.2s, opacity 0.3s;
 }
 
-.cube-guide-open:hover {
-  background: var(--surface);
+.is-cube .cube-arrow svg {
+  width: 20px;
+  height: 20px;
 }
 
-.cube-guide-open:focus-visible {
+.is-cube .cube-arrow[data-key="ArrowLeft"],
+.is-cube .cube-arrow[data-key="ArrowRight"] {
+  top: calc(50% - var(--ui) / 2 - 20px);
+}
+
+.is-cube .cube-arrow[data-key="ArrowLeft"] { left: 16px; }
+.is-cube .cube-arrow[data-key="ArrowRight"] { right: 16px; }
+
+.is-cube .cube-arrow[data-key="ArrowUp"],
+.is-cube .cube-arrow[data-key="ArrowDown"] {
+  left: calc(50% - 20px);
+}
+
+.is-cube .cube-arrow[data-key="ArrowUp"] { top: 8px; }
+.is-cube .cube-arrow[data-key="ArrowDown"] { bottom: calc(var(--ui) - 4px); }
+
+.is-cube .cube-arrow:hover {
+  color: var(--text);
+  transform: scale(1.08);
+}
+
+.is-cube .cube-arrow:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
-.cube-guide-open svg {
-  width: 16px;
-  height: 16px;
+/* The net has its own controls, so the arrows go away while the cube is unfolded. */
+.is-cube .cube-stage.is-net .cube-arrow {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The X folds the cube back. The open side is in the center of the space above the
+   controls. */
+.is-cube .cube-close {
+  position: absolute;
+  z-index: 3;
+  top: calc(50% - var(--ui) / 2 - var(--oh, 0px) / 2 + 12px);
+  left: calc(50% + var(--ow, 0px) / 2 - 52px);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--muted);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: color 0.2s, opacity 0.2s, visibility 0s 0.2s;
+}
+
+.is-cube .cube-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* The X shows when the side has grown. */
+.is-cube .cube-stage.is-reading .cube-close {
+  opacity: 1;
+  visibility: visible;
+  transition: color 0.2s, opacity 0.25s 0.45s;
+}
+
+.is-cube .cube-close:hover {
+  color: var(--text);
+}
+
+.is-cube .cube-close:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* The guide to the cube controls (cube.js). */
@@ -1490,7 +1506,6 @@ pre code {
   right: 14px;
   width: 34px;
   height: 34px;
-  font-size: 22px;
   box-shadow: none;
 }
 
@@ -1653,9 +1668,17 @@ pre code {
   border-radius: 50%;
   background: var(--surface);
   color: var(--text);
-  font: 400 26px/1 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  display: grid;
+  place-items: center;
+  padding: 0;
   cursor: pointer;
   box-shadow: var(--shadow);
+}
+
+/* A drawn X, so that it is in the exact center. A text "×" sits off center. */
+.preview-close svg {
+  width: 20px;
+  height: 20px;
 }
 
 .preview-close:hover {

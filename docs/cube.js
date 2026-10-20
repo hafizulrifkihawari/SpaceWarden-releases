@@ -1,9 +1,9 @@
 /* SpaceWarden landing page cube.
 
    On large screens, the sections become the six sides of a cube. The visitor turns the cube
-   by drag, scroll wheel, arrow keys or the tabs under it. "Unfold" unfolds the cube into a flat
-   net and grows one side to show all of its content. "How it works" shows a guide to the
-   controls. On small screens, with reduced motion,
+   by drag, scroll wheel, arrow keys, the arrows around it or the tabs under it. "Unfold" on a
+   side unfolds the cube into a flat net and grows that side to show all of its content. "?"
+   shows a guide to the controls. On small screens, with reduced motion,
    or without this script, the page stays a normal scroll page. No libraries. */
 
 (function () {
@@ -13,6 +13,11 @@
   var FOLD_MS = 700;
   var OPEN_MS = 550;
   var TURN_MS = 520;
+  // The first visit starts a little turned and settles slowly, so the visitor sees that it is a
+  // cube. Later visits start at rest.
+  var INTRO_DEG = 18;
+  var INTRO_MS = 1600;
+  var INTRO_KEY = "spacewarden-cube-intro";
   var ROLL_MS = 320;
   var BASE_SIDE = 740;
   var DEG_PER_PX = 0.22;
@@ -141,6 +146,22 @@
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
+  // A gentle start and end, for the slow first settle.
+  function easeSine(t) {
+    return (1 - Math.cos(Math.PI * t)) / 2;
+  }
+
+  // True the first time this browser shows the cube. Without storage, the intro shows.
+  function firstVisit() {
+    try {
+      if (localStorage.getItem(INTRO_KEY)) return false;
+      localStorage.setItem(INTRO_KEY, "1");
+    } catch (e) {
+      // Storage is blocked. Show the intro.
+    }
+    return true;
+  }
+
   function wait(ms) {
     return new Promise(function (resolve) {
       setTimeout(resolve, ms);
@@ -217,35 +238,51 @@
     tabButtons[name] = button;
     tabs.appendChild(button);
   });
-  var help = document.createElement("div");
-  help.className = "cube-help";
-  var hint = document.createElement("span");
-  var toggle = document.createElement("button");
-  toggle.type = "button";
-  toggle.className = "cube-toggle";
-  toggle.addEventListener("click", function () {
-    if (mode === "open") {
-      close();
-    } else {
-      open(current);
-    }
-  });
-  var guideButton = document.createElement("button");
-  guideButton.type = "button";
-  guideButton.className = "cube-guide-open";
-  guideButton.setAttribute("aria-haspopup", "dialog");
-  guideButton.innerHTML =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
-    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-    '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6' +
-    'M12 17h.01"/></svg>How it works';
-  guideButton.addEventListener("click", showGuide);
-  help.append(hint, toggle, guideButton);
   var live = document.createElement("p");
   live.className = "visually-hidden";
   live.setAttribute("aria-live", "polite");
-  ui.append(tabs, help, live);
+  ui.append(tabs, live);
   stage.appendChild(ui);
+
+  // The X at the top right of the open side folds the cube back.
+  var closeButton = document.createElement("button");
+  closeButton.type = "button";
+  closeButton.className = "cube-close";
+  closeButton.setAttribute("aria-label", "Fold");
+  closeButton.title = "Fold";
+  closeButton.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M6 6l12 12M18 6L6 18"/></svg>';
+  closeButton.addEventListener("click", function () {
+    if (mode === "open") close();
+  });
+  stage.appendChild(closeButton);
+
+  // An arrow on each side of the cube. It turns the cube as the arrow key does, so the
+  // visitor sees that there is a side in each direction.
+  var ARROW_PATHS = {
+    ArrowLeft: "M15 6l-6 6 6 6",
+    ArrowRight: "M9 6l6 6-6 6",
+    ArrowUp: "M6 15l6-6 6 6",
+    ArrowDown: "M6 9l6 6 6-6",
+  };
+  var arrowButtons = {};
+  Object.keys(ARROW_PATHS).forEach(function (key) {
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "cube-arrow";
+    button.dataset.key = key;
+    button.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="' + ARROW_PATHS[key] + '"/></svg>';
+    button.addEventListener("click", function () {
+      turnByArrow(key);
+    });
+    arrowButtons[key] = button;
+    stage.appendChild(button);
+  });
 
   ORDER.forEach(function (name) {
     var button = document.createElement("button");
@@ -254,7 +291,7 @@
     button.innerHTML =
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
       'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Unfold this side';
+      '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Unfold';
     button.addEventListener("click", function () {
       open(name);
     });
@@ -267,7 +304,7 @@
   guide.className = "cube-guide";
   guide.setAttribute("aria-labelledby", "cube-guide-title");
   guide.innerHTML =
-    '<button type="button" class="preview-close" aria-label="Close the guide">&times;</button>' +
+    '<button type="button" class="preview-close" aria-label="Close the guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
     '<h2 id="cube-guide-title">How the cube works</h2>' +
     "<p>Each side of the cube is one part of this page. Home is in the middle. The cube " +
     "unfolds into this map.</p>" +
@@ -281,13 +318,13 @@
     "</ul></section>" +
     "<section><h3>Unfold a side</h3><ul>" +
     "<li>Press <kbd>Enter</kbd>.</li>" +
-    "<li>Click <b>Unfold</b> or <b>Unfold this side</b>.</li>" +
+    "<li>Click <b>Unfold</b>.</li>" +
     "<li>The side grows, so you can read all of it.</li>" +
     "</ul></section>" +
     "<section><h3>When it is unfolded</h3><ul>" +
     "<li>Press an arrow key to go to the next side.</li>" +
     "<li>On a long side, <kbd>↑</kbd> and <kbd>↓</kbd> scroll first.</li>" +
-    "<li>Press <kbd>Esc</kbd>, click <b>Fold back</b> or click outside the side to " +
+    "<li>Press <kbd>Esc</kbd>, click <b>X</b> or click outside the side to " +
     "fold it back.</li>" +
     "</ul></section>" +
     "</div>" +
@@ -343,13 +380,14 @@
   function size() {
     var w = stage.clientWidth;
     var h = stage.clientHeight;
-    var controls = parseFloat(getComputedStyle(stage).getPropertyValue("--ui")) || 112;
+    var controls = parseFloat(getComputedStyle(stage).getPropertyValue("--ui")) || 64;
     return { w: w, h: h, avail: h - controls };
   }
 
   function layout() {
     var box = size();
-    var s = Math.floor(Math.min(box.w - 96, box.avail - 32));
+    // Keep room for the arrows above and under the cube.
+    var s = Math.floor(Math.min(box.w - 128, box.avail - 112));
     stage.style.setProperty("--s", s + "px");
     // The side content is laid out for a 740 px side. Larger sides zoom it up to fill them.
     stage.style.setProperty("--zoom", Math.max(1, s / BASE_SIDE).toFixed(3));
@@ -388,6 +426,9 @@
     var h = box.avail - 24;
     face.style.setProperty("--ow", w + "px");
     face.style.setProperty("--oh", h + "px");
+    // The X goes at the top right of the open side.
+    stage.style.setProperty("--ow", w + "px");
+    stage.style.setProperty("--oh", h + "px");
     face.style.setProperty("--ox", s / 2 + cell[0] * s - w / 2 + "px");
     face.style.setProperty("--oy", s / 2 + cell[1] * s - h / 2 + "px");
   }
@@ -421,23 +462,13 @@
     ORDER.forEach(function (other) {
       tabButtons[other].setAttribute("aria-current", other === name ? "true" : "false");
     });
+    Object.keys(arrowButtons).forEach(function (key) {
+      var next = facing(mul(ARROWS[key], SIDES[name].q));
+      arrowButtons[key].setAttribute("aria-label", "Turn to " + faces[next].dataset.label);
+      arrowButtons[key].title = faces[next].dataset.label;
+    });
     live.textContent = "Showing: " + faces[name].dataset.label;
     setHash(name);
-  }
-
-  function setHelp() {
-    if (mode === "open") {
-      hint.textContent = "Use the arrow keys to go to the next side. Press Escape to fold it back.";
-      toggle.innerHTML =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
-        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-        '<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/></svg>Fold back';
-      toggle.classList.add("is-fold");
-    } else {
-      hint.textContent = "Drag, scroll or use the arrow keys to turn. Press Enter to unfold.";
-      toggle.textContent = "Unfold";
-      toggle.classList.remove("is-fold");
-    }
   }
 
   function stopTurn() {
@@ -449,7 +480,8 @@
   }
 
   // Turns the cube to the rotation "to". Resolves true when it gets there.
-  function slerpTo(to, ms) {
+  function slerpTo(to, ms, easing) {
+    easing = easing || ease;
     stopTurn();
     var from = q;
     var start = performance.now();
@@ -462,7 +494,7 @@
           return;
         }
         var t = Math.min(1, (now - start) / ms);
-        q = slerp(from, to, ease(t));
+        q = slerp(from, to, easing(t));
         render();
         if (t < 1) {
           turnFrame = requestAnimationFrame(step);
@@ -476,11 +508,11 @@
     });
   }
 
-  function turnTo(name, ms) {
+  function turnTo(name, ms, easing) {
     var token = run;
     mode = "turn";
     setCurrent(name);
-    return slerpTo(SIDES[name].q, ms || TURN_MS).then(function (done) {
+    return slerpTo(SIDES[name].q, ms || TURN_MS, easing).then(function (done) {
       if (done && token === run && mode === "turn") {
         mode = "idle";
         runPendingKey();
@@ -503,6 +535,15 @@
     if (done && token === run && mode === "turn") {
       mode = "idle";
       runPendingKey();
+    }
+  }
+
+  // An arrow key or an arrow button. A turn that is running keeps the next arrows in a queue.
+  function turnByArrow(key) {
+    if (mode === "idle") {
+      arrowTurn(key);
+    } else if (mode === "turn" && keyQueue.length < MAX_QUEUE) {
+      keyQueue.push(key);
     }
   }
 
@@ -553,7 +594,6 @@
     mode = "open";
     setCurrent(name);
     live.textContent = "Opened: " + face.dataset.label;
-    setHelp();
     focusHeading(face);
   }
 
@@ -602,7 +642,6 @@
     if (token !== run) return;
     openSide = null;
     measure();
-    setHelp();
     await turnTo(name, 650);
     if (hadFocus) {
       stage.focus({ preventScroll: true });
@@ -696,7 +735,7 @@
 
   stage.addEventListener("pointerdown", function (e) {
     if (!active || e.button !== 0 || (mode !== "idle" && mode !== "turn")) return;
-    if (e.target.closest(".cube-ui")) return;
+    if (e.target.closest(".cube-ui, .cube-arrow")) return;
     drag = {
       startX: e.clientX,
       startY: e.clientY,
@@ -813,11 +852,7 @@
     }
     if (ARROWS[e.key]) {
       e.preventDefault();
-      if (mode === "idle") {
-        arrowTurn(e.key);
-      } else if (mode === "turn" && keyQueue.length < MAX_QUEUE) {
-        keyQueue.push(e.key);
-      }
+      turnByArrow(e.key);
       return;
     }
     if (mode !== "idle") return;
@@ -865,13 +900,12 @@
     stage.setAttribute("aria-roledescription", "cube");
     stage.setAttribute("aria-label", "SpaceWarden. Six sides.");
     layout();
-    setHelp();
     var id = decodeURIComponent(location.hash.slice(1));
     var start = idToSide[id] || "front";
-    // Start a little turned, then settle, so the visitor sees that it is a cube.
-    q = mul(axisAngle(1, -1.4, 0, 32), SIDES[start].q);
+    var intro = firstVisit();
+    q = intro ? mul(axisAngle(1, -1.4, 0, INTRO_DEG), SIDES[start].q) : SIDES[start].q;
     render();
-    turnTo(start, 1100).then(function () {
+    turnTo(start, intro ? INTRO_MS : 1, easeSine).then(function () {
       if (active && mode === "idle" && idToSide[id] && isLower(id)) go(id);
     });
   }
